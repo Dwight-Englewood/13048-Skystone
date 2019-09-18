@@ -33,5 +33,9 @@ public class GameDrive {
             bot.strafePower(0);
 
 
+        public static void Joonsoo(){
+            
+        }
+
     }
 }
