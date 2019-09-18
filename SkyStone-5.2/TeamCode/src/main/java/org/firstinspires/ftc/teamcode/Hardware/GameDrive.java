@@ -21,7 +21,7 @@ public class GameDrive {
         this.bot = bot;
     }
 
-    public static void Drive(double leftStickY, rightStickX,  rightTrigger,  leftTrigger,  leftStickX, rightStickY){
+    public static void Drive(double leftStickY, rightStickX,  rightTrigger,  leftTrigger,  leftStickX, rightStickY) {
         bot.drivePower(leftStickY);
         bot.turnPower(rightStickX);
 
@@ -36,6 +36,6 @@ public class GameDrive {
         public static void Joonsoo(){
             
         }
-
+    public static void Royce(){
     }
 }
