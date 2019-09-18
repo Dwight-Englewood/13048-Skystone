@@ -17,11 +17,11 @@ public class GameDrive {
 
     public Bot bot;
 
-    public GameDrive(Bot bot){
+    public GameDrive(Bot bot) {
         this.bot = bot;
     }
 
-    public static void Drive(double leftStickY, rightStickX,  rightTrigger,  leftTrigger,  leftStickX, rightStickY) {
+    public static void Drive(double leftStickY, rightStickX, rightTrigger, leftTrigger, leftStickX, rightStickY) {
         bot.drivePower(leftStickY);
         bot.turnPower(rightStickX);
 
@@ -31,4 +31,5 @@ public class GameDrive {
             bot.strafePower(-leftTrigger);
         else
             bot.strafePower(0);
+    }
 }
