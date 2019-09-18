@@ -20,4 +20,18 @@ public class GameDrive {
     public GameDrive(Bot bot){
         this.bot = bot;
     }
+
+    public static void Drive(double leftStickY, rightStickX,  rightTrigger,  leftTrigger,  leftStickX, rightStickY){
+        bot.drivePower(leftStickY);
+        bot.turnPower(rightStickX);
+        
+        if (rightTrigger > 0.15 && leftTrigger < 0.15)
+            bot.strafePower(rightTrigger);
+        else if (leftTrigger > 0.15 && rightTrigger < 0.15)
+            bot.strafePower(-leftTrigger);
+        else
+            bot.strafePower(0);
+
+
+    }
 }
