@@ -31,7 +31,11 @@ public class GameDrive {
             bot.strafePower(-leftTrigger);
         else
             bot.strafePower(0);
-    }
+
+
+        public static void Joonsoo(){
+            
+        }
     public static void Royce(){
     }
 }
