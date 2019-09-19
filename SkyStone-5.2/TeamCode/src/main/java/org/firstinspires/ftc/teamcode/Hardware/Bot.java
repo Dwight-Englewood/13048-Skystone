@@ -16,10 +16,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 //import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class Bot {
-    public static DcMotor BL, BR, FL, FR;
+    public static DcMotor BL, BR, FL, FR, lift;
 //            , hook, lift, joint;
 //    public CRServo inBOBO;
-//    public Servo door;
+    public Servo claw;
 //    public DigitalChannel liftLimit, hookLimit;
 //    public RevBlinkinLedDriver blinkin;
 //    int originTick;
@@ -46,22 +46,23 @@ public class Bot {
         this.tele = tele;
 
 //        hook = this.map.get(DcMotor.class, "hook");
-        BR = this.map.get(DcMotor.class, "BR");
-        BL = this.map.get(DcMotor.class, "BL");
-        FL = this.map.get(DcMotor.class, "FL");
-        FR = this.map.get(DcMotor.class, "FR");
-//        lift = this.map.get(DcMotor.class, "lift");
+//        BR = this.map.get(DcMotor.class, "BR");
+//        BL = this.map.get(DcMotor.class, "BL");
+//        FL = this.map.get(DcMotor.class, "FL");
+//        FR = this.map.get(DcMotor.class, "FR");
+        lift = this.map.get(DcMotor.class, "lift");
+        claw = this.map.get(Servo.class, "claw");
 //        inBOBO = this.map.get(CRServo.class,"Bintake");
 //        joint = this.map.get(DcMotor.class, "joint");
 
 //        door = this.map.get(Servo.class, "door");
         //  blinkin = this.map.get(RevBlinkinLedDriver.class, "rgbReady");
 
-        BR.setDirection(DcMotorSimple.Direction.FORWARD);
-        BL.setDirection(DcMotorSimple.Direction.REVERSE);
-        FL.setDirection(DcMotorSimple.Direction.FORWARD);
-        FR.setDirection(DcMotorSimple.Direction.REVERSE);
-//        lift.setDirection(DcMotorSimple.Direction.REVERSE);
+//        BR.setDirection(DcMotorSimple.Direction.FORWARD);
+//        BL.setDirection(DcMotorSimple.Direction.REVERSE);
+//        FL.setDirection(DcMotorSimple.Direction.FORWARD);
+//        FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        lift.setDirection(DcMotorSimple.Direction.REVERSE);
 //        joint.setDirection(DcMotorSimple.Direction.FORWARD);
 //        inBOBO.setDirection(DcMotorSimple.Direction.FORWARD);
 //        hook.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -81,6 +82,7 @@ public class Bot {
 //        joint.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //
 //        hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
     public static void changeRunMode(DcMotor.RunMode runMode) {
@@ -89,7 +91,7 @@ public class Bot {
         FL.setMode(runMode);
         FR.setMode(runMode);
 //        hook.setMode(runMode);
-//        lift.setMode(runMode);
+        lift.setMode(runMode);
 //        joint.setMode(runMode);
         //  intake.setMode(runMode);
     }
