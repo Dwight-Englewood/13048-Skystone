@@ -47,8 +47,13 @@ public class teleOp extends OpMode {
         double rightTrigger = (double) gamepad1.right_trigger;
         double leftTrigger = (double) gamepad1.left_trigger;
         double rightStickX = (double) gamepad1.right_stick_x;
-//        drive.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, 0.0, 0.0);
-        bot.lift.setPower(leftStickY);
+        drive.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, 0.0, 0.0);
+        if(gamepad1.dpad_up)
+            bot.lift.setPower(1);
+        else if(gamepad1.dpad_down)
+            bot.lift.setPower(-1);
+        else
+            bot.lift.setPower(0);
         if(gamepad1.a)
             bot.claw.setPosition(1.0);
         if(gamepad1.b)
