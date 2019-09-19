@@ -8,7 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 //import org.ejml.simple.SimpleMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.Hardware.Bot;
+//import org.firstinspires.ftc.teamcode.Hardware.Bot;
+import org.firstinspires.ftc.teamcode.Hardware.*;
 
 
 @TeleOp(name = "TeleOp1", group = "Teleop")
@@ -40,13 +41,26 @@ public class teleOp extends OpMode {
     @Override
     public void loop() {
 
+//        double lsx = gamepad1.left_stick_x;
+        GameDrive drive = new GameDrive(bot);
+        double leftStickY = (double) gamepad1.left_stick_y;
+        double rightTrigger = (double) gamepad1.right_trigger;
+        double leftTrigger = (double) gamepad1.left_trigger;
+        double rightStickX = (double) gamepad1.right_stick_x;
+//        drive.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, 0.0, 0.0);
+        bot.lift.setPower(leftStickY);
+        if(gamepad1.a)
+            bot.claw.setPosition(1.0);
+        if(gamepad1.b)
+            bot.claw.setPosition(0.0);
 //        double botTheta = bot.imu.getGyroRotation(AngleUnit.RADIANS);
         //The readings from the gyro are different from the reading needed for the field centric code, so we apply a function to fix it
 //        botTheta = (botTheta < 0) ? -botTheta : 2 * Math.PI - botTheta;
 //        botTheta = botTheta;
-        double lsx = -gamepad1.left_stick_x;
-        double lsy = -gamepad1.left_stick_y;
-        double theta = gamepad1.right_stick_x / 2;
+//        double lsx = -gamepad1.left_stick_x;
+//        double lsy = -gamepad1.left_stick_y;
+
+//        double theta = gamepad1.right_stick_x / 2;
 //        SimpleMatrix powVector = bot.driveTrain.drive(lsx, lsy, theta, botTheta);
 
 

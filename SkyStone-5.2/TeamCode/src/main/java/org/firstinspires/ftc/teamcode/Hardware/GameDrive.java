@@ -15,13 +15,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class GameDrive {
 
-    public Bot bot;
+    static public Bot bot;
 
     public GameDrive(Bot bot) {
         this.bot = bot;
     }
 
-    public static void Drive(double leftStickY, rightStickX, rightTrigger, leftTrigger, leftStickX, rightStickY) {
+    public static void driveBot(double leftStickY,double rightStickX,double rightTrigger,double leftTrigger,double leftStickX,double rightStickY) {
         bot.drivePower(leftStickY);
         bot.turnPower(rightStickX);
 
