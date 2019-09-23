@@ -169,6 +169,40 @@ public class Bot {
         else if ((Math.abs(FL.getCurrentPosition() / 200) <= FL.getTargetPosition())) {setPower(0.2);}
         else if ((Math.abs(FL.getCurrentPosition()) >= FL.getTargetPosition())) {setPower(0);}
     }
+    
+    //    public boolean adjustHeading(int targetHeading) {
+//        double curHeading = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+//        double headingError;
+//        headingError = targetHeading - curHeading;
+//        double driveScale = headingError;
+//        this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        if(headingError < -0.3)
+//            driveScale = -0.15;
+//        else if(headingError > 0.3)
+//            driveScale = 0.15;
+//        else {
+//            driveScale = 0;
+//            this.drive(MovementEnum.LEFTTURN, driveScale);
+//            return true;
+//        }
+//        this.drive(MovementEnum.LEFTTURN, driveScale);
+//        //    this.tele.addData("drive Scale",driveScale);
+//        //   tele.update();
+//        //   this.tankDrive(driveScale, -driveScale, 0, 0, false, false);
+//        // this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        return false;
+//    }
+
+//    public void headingAdjuster(int targetHeading) {
+//        if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+//            this.adjustHeading(targetHeading);
+//        }
+//        else if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+//            this.drive(MovementEnum.STOP, 0);
+//            tele.update();
+//        }
+//    }
+
 
     public double motorSpeed() {
         if (Math.abs(FL.getCurrentPosition()) < Math.abs(FL.getTargetPosition())) {
