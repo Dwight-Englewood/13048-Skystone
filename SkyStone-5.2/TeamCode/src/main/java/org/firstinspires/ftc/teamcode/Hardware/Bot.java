@@ -107,158 +107,6 @@ public class Bot {
         this.drive(0.0);
     }
 
-//    public void notKevinDrive(double leftStick_y, double leftStick_x, double leftTrigger, double rightTrigger) {
-//        if (leftTrigger > .3) {
-//            drive(MovementEnum.LEFTSTRAFE, leftTrigger);
-//            return;
-//        }
-//        if (rightTrigger > .3) {
-//            drive(MovementEnum.RIGHTSTRAFE, rightTrigger);
-//            return;
-//        }
-//
-//        //   leftStick *= i;
-//        //     rightStick *= i;
-//        FL.setPower(leftStick_y);
-//        FR.setPower(leftStick_y);
-//        BL.setPower(-leftStick_y);
-//        BR.setPower(-leftStick_y);
-//    }
-
-//    public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
-//        double i = invert ? 0.4 : 0.9;
-//        //  double s = sickoMode ? 0.4 : 1;
-//
-//        if (leftTrigger > .3) {
-//            drive(MovementEnum.LEFTSTRAFE, leftTrigger * i);
-//            return;
-//        }
-//
-//        if (rightTrigger > .3) {
-//            drive(MovementEnum.RIGHTSTRAFE, rightTrigger * i);
-//            return;
-//        }
-//        leftStick *= i;
-//        rightStick *= i;
-//
-//        FL.setPower(leftStick);
-//        FR.setPower(rightStick);
-//        BL.setPower(-leftStick);
-//        BR.setPower(-rightStick);
-//    }
-
-//    public void autonDrive(MovementEnum movement, int target) {
-//        switch (movement) {
-//            case FORWARD:
-//                FL.setTargetPosition(target);
-//                FR.setTargetPosition(target);
-//                BL.setTargetPosition(target);
-//                BR.setTargetPosition(target);
-//                break;
-//
-//            case BACKWARD:
-//                FL.setTargetPosition(-target);
-//                FR.setTargetPosition(-target);
-//                BL.setTargetPosition(-target);
-//                BR.setTargetPosition(-target);
-//                break;
-//
-//            case LEFTSTRAFE:
-//                FL.setTargetPosition(-target);
-//                FR.setTargetPosition(target);
-//                BL.setTargetPosition(target);
-//                BR.setTargetPosition(-target);
-//                break;
-//
-//            case RIGHTSTRAFE:
-//                FL.setTargetPosition(target);
-//                FR.setTargetPosition(-target);
-//                BL.setTargetPosition(-target);
-//                BR.setTargetPosition(target);
-//                break;
-//
-//            case LEFTTURN:
-//                FL.setTargetPosition(-target);
-//                FR.setTargetPosition(target);
-//                BL.setTargetPosition(-target);
-//                BR.setTargetPosition(target);
-//                break;
-//
-//            case RIGHTTURN:
-//                FL.setTargetPosition(target);
-//                FR.setTargetPosition(-target);
-//                BL.setTargetPosition(target);
-//                BR.setTargetPosition(-target);
-//                break;
-//
-//            case STOP:
-//                FL.setTargetPosition(FL.getCurrentPosition());
-//                FR.setTargetPosition(FR.getCurrentPosition());
-//                BL.setTargetPosition(BL.getCurrentPosition());
-//                BR.setTargetPosition(BR.getCurrentPosition());
-//                break;
-//        }
-//    }
-
-//    public void BoBosEncoders(MovementEnum movement, int target) {
-//        switch (movement) {
-//            case FORWARD:
-//                this.getPos();
-//                FL.setTargetPosition(FLcurPos()+target);
-//                FR.setTargetPosition(FRcurPos()+target);
-//                BL.setTargetPosition(BLcurPos()+target);
-//                BR.setTargetPosition(BRcurPos()+target);
-//                break;
-//
-//            case BACKWARD:
-//                this.getPos();
-//                FL.setTargetPosition(FLcurPos()-target);
-//                FR.setTargetPosition(FRcurPos()-target);
-//                BL.setTargetPosition(BLcurPos()-target);
-//                BR.setTargetPosition(BRcurPos()-target);
-//                break;
-//
-//            case LEFTSTRAFE:
-//                this.getPos();
-//                FL.setTargetPosition(FLcurPos()-target);
-//                FR.setTargetPosition(FRcurPos()+target);
-//                BL.setTargetPosition(BLcurPos()+target);
-//                BR.setTargetPosition(BRcurPos()-target);
-//                break;
-//
-//            case RIGHTSTRAFE:
-//                this.getPos();
-//                FL.setTargetPosition(FLcurPos()+target);
-//                FR.setTargetPosition(FRcurPos()-target);
-//                BL.setTargetPosition(BLcurPos()-target);
-//                BR.setTargetPosition(BRcurPos()+target);
-//                break;
-//
-//            case LEFTTURN:
-//                this.getPos();
-//                FL.setTargetPosition(FLcurPos()-target);
-//                FR.setTargetPosition(FRcurPos()+target);
-//                BL.setTargetPosition(BLcurPos()-target);
-//                BR.setTargetPosition(BRcurPos()+target);
-//                break;
-//
-//            case RIGHTTURN:
-//                this.getPos();
-//                FL.setTargetPosition(FLcurPos()+target);
-//                FR.setTargetPosition(FRcurPos()-target);
-//                BL.setTargetPosition(BLcurPos()+target);
-//                BR.setTargetPosition(BRcurPos()-target);
-//                break;
-//
-//            case STOP:
-//                FL.setTargetPosition(FL.getCurrentPosition());
-//                FR.setTargetPosition(FR.getCurrentPosition());
-//                BL.setTargetPosition(BL.getCurrentPosition());
-//                BR.setTargetPosition(BR.getCurrentPosition());
-//                break;
-//        }
-//    }
-
     public int FLcurPos() {
         return FL.getCurrentPosition();
     }
@@ -288,61 +136,6 @@ public class Bot {
         BL.getCurrentPosition();
         BR.getCurrentPosition();
     }
-
-    //TODO fix the the driver values and restrict the motor values
-//    public void drive(MovementEnum movement, double power) {
-//        switch (movement) {
-//            case FORWARD:
-//                FL.setPower(power);
-//                FR.setPower(power);
-//                BL.setPower(power);
-//                BR.setPower(power);
-//                break;
-//
-//            case BACKWARD:
-//                FR.setPower(power);
-//                FL.setPower(power);
-//                BL.setPower(-power);
-//                BR.setPower(-power);
-//                break;
-//
-//            case LEFTSTRAFE:
-//                FL.setPower(power);
-//                FR.setPower(-power);
-//                BL.setPower(power);
-//                BR.setPower(-power);
-//                break;
-//
-//            case RIGHTSTRAFE:
-//                FL.setPower(-power);
-//                FR.setPower(power);
-//                BL.setPower(-power);
-//                BR.setPower(power);
-//                break;
-//
-//            case LEFTTURN:
-//                FL.setPower(-power);
-//                FR.setPower(power);
-//                BL.setPower(-power);
-//                BR.setPower(power);
-//                break;
-//
-//            case RIGHTTURN:
-//                FL.setPower(power);
-//                FR.setPower(-power);
-//                BL.setPower(power);
-//                BR.setPower(-power);
-//                break;
-//
-//            case STOP:
-//                FL.setPower(0);
-//                FR.setPower(0);
-//                BL.setPower(0);
-//                BR.setPower(0);
-//                break;
-//        }
-//    }
-
     public void turnPower(double power) {
         BL.setPower(-power);
         BR.setPower(power);
@@ -356,7 +149,6 @@ public class Bot {
         BL.setPower(-power);
         BR.setPower(-power);
     }
-
     public void strafePower(double power) {
         FL.setPower(power);
         FR.setPower(power);
@@ -364,83 +156,11 @@ public class Bot {
         BR.setPower(power);
     }
     public void setPower(double power) {
-        FL.setPower(power);
-        FR.setPower(power);
-        BL.setPower(power);
-        BR.setPower(power);
+        strafePower(power);
     }
 
 
-//    public int hookTarget() {
-//        hook.setTargetPosition(19040);
-//        double hookDistance = (hook.getTargetPosition() / 1120);
-//        return (int) (hookDistance);
-//    }
-//
-//    private int distanceToRevs(double distance) {
-//        final double wheelCircumference = 31.9185813;
-//        final double gearMotorTickCount = 1120;  //Neverest 40 = 280 Pulses per revolution, 1120 Counts per revolution
-//        return (int) (gearMotorTickCount * (distance / wheelCircumference));
-//    }
-//
-//    public double fetchHeading() {
-//        return gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-//    }
-//
-//    public void autonDriveUltimate(MovementEnum movementEnum, int target, double power) {
-//        this.autonDrive(movementEnum, target);
-//        this.setPower(power);
-//        this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-//
-//        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
-//            drive(MovementEnum.STOP, 0);
-//            tele.update();
-//        }
-//    }
-//
-//    public void BoBoTractor(MovementEnum movementEnum, int target) {
-//        this.BoBosEncoders(movementEnum, target);
-//        //      scalePower();
-//        this.BoBoPID();
-//        this.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        //      this.originTick = FL.getCurrentPosition();
-//
-//        if (Math.abs(FL.getCurrentPosition()) >= Math.abs(FL.getTargetPosition())) {
-//            drive(MovementEnum.STOP, 0);
-//            tele.update();
-//        }
-//    }
-/*
-    public void scalePower() {
-        double power;
-        int target = FL.getTargetPosition();
-        int current = FL.getCurrentPosition();
-        int sign = target < current ? -1 : 1;
-        int diff = Math.abs(target - current);
-        int originDiff = Math.abs(this.originTick - current);
-        if (originDiff < 75) {
-            power = .1;
-        } else if (originDiff < 250) {
-            power = .3;
-        } else if (originDiff < 400) {
-            power = .5;
-        } else {
-            power = 1;
-        }
-        if (diff < 100) {
-            power = .1;
-        } else if (diff < 300) {
-            power = .3;
-        } else if (diff < 500) {
-            power = .5;
-        } else if (diff < 750) {
-            power = .7;
-        }
-        this.drivePower(sign * power);
-    }
-*/
-
-    public void BoBoPID() {
+    public void PID() {
         if (Math.abs(FL.getCurrentPosition() / 1000) <= FL.getTargetPosition()) {setPower(1);}
         else if ((Math.abs(FL.getCurrentPosition() / 800) <= FL.getTargetPosition())) {setPower(0.8);}
         else if ((Math.abs(FL.getCurrentPosition() / 650) <= FL.getTargetPosition())) {setPower(0.65);}
@@ -449,39 +169,6 @@ public class Bot {
         else if ((Math.abs(FL.getCurrentPosition() / 200) <= FL.getTargetPosition())) {setPower(0.2);}
         else if ((Math.abs(FL.getCurrentPosition()) >= FL.getTargetPosition())) {setPower(0);}
     }
-
-//    public boolean adjustHeading(int targetHeading) {
-//        double curHeading = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-//        double headingError;
-//        headingError = targetHeading - curHeading;
-//        double driveScale = headingError;
-//        this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        if(headingError < -0.3)
-//            driveScale = -0.15;
-//        else if(headingError > 0.3)
-//            driveScale = 0.15;
-//        else {
-//            driveScale = 0;
-//            this.drive(MovementEnum.LEFTTURN, driveScale);
-//            return true;
-//        }
-//        this.drive(MovementEnum.LEFTTURN, driveScale);
-//        //    this.tele.addData("drive Scale",driveScale);
-//        //   tele.update();
-//        //   this.tankDrive(driveScale, -driveScale, 0, 0, false, false);
-//        // this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        return false;
-//    }
-
-//    public void headingAdjuster(int targetHeading) {
-//        if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-//            this.adjustHeading(targetHeading);
-//        }
-//        else if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
-//            this.drive(MovementEnum.STOP, 0);
-//            tele.update();
-//        }
-//    }
 
     public double motorSpeed() {
         if (Math.abs(FL.getCurrentPosition()) < Math.abs(FL.getTargetPosition())) {
