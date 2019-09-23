@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teleop;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -11,10 +11,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 //import org.firstinspires.ftc.teamcode.Hardware.Bot;
 import org.firstinspires.ftc.teamcode.Hardware.*;
 
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp", group="Teleop")
 
-@TeleOp(name = "TeleOp1", group = "Teleop")
-@Disabled
-public class teleOp extends OpMode {
+//@Disabled
+public class tele extends OpMode {
 
     Bot bot = new Bot();
     /*
@@ -43,7 +43,7 @@ public class teleOp extends OpMode {
 
 //        double lsx = gamepad1.left_stick_x;
         GameDrive drive = new GameDrive(bot);
-        double leftStickY = (double) gamepad1.left_stick_y;
+        double leftStickY = (double) -gamepad1.left_stick_y;
         double rightTrigger = (double) gamepad1.right_trigger;
         double leftTrigger = (double) gamepad1.left_trigger;
         double rightStickX = (double) gamepad1.right_stick_x;

@@ -22,14 +22,15 @@ public class GameDrive {
     }
 
     public static void driveBot(double leftStickY,double rightStickX,double rightTrigger,double leftTrigger,double leftStickX,double rightStickY) {
-        bot.drivePower(leftStickY);
-        bot.turnPower(rightStickX);
-
-        if (rightTrigger > 0.15 && leftTrigger < 0.15)
-            bot.strafePower(rightTrigger);
-        else if (leftTrigger > 0.15 && rightTrigger < 0.15)
-            bot.strafePower(-leftTrigger);
+        if(leftStickY > 0.15 || leftStickY < -0.15)
+            bot.drivePower(leftStickY);
+        else if(rightStickX > 0.15 || rightStickX < -0.15)
+           bot.turnPower(rightStickX);
+        else if (rightTrigger > 0.15)
+            bot.strafePower(-rightTrigger);
+        else if (leftTrigger > 0.15)
+            bot.strafePower(leftTrigger);
         else
-            bot.strafePower(0);
+            bot.stop();
     }
 }

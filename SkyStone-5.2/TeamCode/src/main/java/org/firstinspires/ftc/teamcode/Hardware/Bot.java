@@ -46,10 +46,10 @@ public class Bot {
         this.tele = tele;
 
 //        hook = this.map.get(DcMotor.class, "hook");
-//        BR = this.map.get(DcMotor.class, "BR");
-//        BL = this.map.get(DcMotor.class, "BL");
-//        FL = this.map.get(DcMotor.class, "FL");
-//        FR = this.map.get(DcMotor.class, "FR");
+        BR = this.map.get(DcMotor.class, "BR");
+        BL = this.map.get(DcMotor.class, "BL");
+        FL = this.map.get(DcMotor.class, "FL");
+        FR = this.map.get(DcMotor.class, "FR");
         lift = this.map.get(DcMotor.class, "lift");
         claw = this.map.get(Servo.class, "claw");
 //        inBOBO = this.map.get(CRServo.class,"Bintake");
@@ -58,10 +58,10 @@ public class Bot {
 //        door = this.map.get(Servo.class, "door");
         //  blinkin = this.map.get(RevBlinkinLedDriver.class, "rgbReady");
 
-//        BR.setDirection(DcMotorSimple.Direction.FORWARD);
-//        BL.setDirection(DcMotorSimple.Direction.REVERSE);
-//        FL.setDirection(DcMotorSimple.Direction.FORWARD);
-//        FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        BR.setDirection(DcMotorSimple.Direction.FORWARD);
+        BL.setDirection(DcMotorSimple.Direction.REVERSE);
+        FL.setDirection(DcMotorSimple.Direction.FORWARD);
+        FR.setDirection(DcMotorSimple.Direction.REVERSE);
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
 //        joint.setDirection(DcMotorSimple.Direction.FORWARD);
 //        inBOBO.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -146,13 +146,6 @@ public class Bot {
 //        BL.setPower(-leftStick);
 //        BR.setPower(-rightStick);
 //    }
-
-    public void setPower(double power) {
-        FL.setPower(power);
-        BL.setPower(power);
-        FR.setPower(power);
-        BR.setPower(power);
-    }
 
 //    public void autonDrive(MovementEnum movement, int target) {
 //        switch (movement) {
@@ -351,8 +344,8 @@ public class Bot {
 //    }
 
     public void turnPower(double power) {
-        BL.setPower(power);
-        BR.setPower(-power);
+        BL.setPower(-power);
+        BR.setPower(power);
         FR.setPower(-power);
         FL.setPower(power);
     }
@@ -360,16 +353,23 @@ public class Bot {
     public void drivePower(double power) {
         FL.setPower(power);
         FR.setPower(power);
+        BL.setPower(-power);
+        BR.setPower(-power);
+    }
+
+    public void strafePower(double power) {
+        FL.setPower(power);
+        FR.setPower(power);
+        BL.setPower(power);
+        BR.setPower(power);
+    }
+    public void setPower(double power) {
+        FL.setPower(power);
+        FR.setPower(power);
         BL.setPower(power);
         BR.setPower(power);
     }
 
-    public void strafePower(double power) {
-        FL.setPower(-power);
-        FR.setPower(power);
-        BL.setPower(-power);
-        BR.setPower(power);
-    }
 
 //    public int hookTarget() {
 //        hook.setTargetPosition(19040);
