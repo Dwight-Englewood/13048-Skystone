@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.Hardware.*;
 public class tele extends OpMode {
 
     Bot bot = new Bot();
+    int TankDrive = -1;
     /*
     fr = 1
     fl = 2
@@ -43,11 +44,17 @@ public class tele extends OpMode {
 
 //        double lsx = gamepad1.left_stick_x;
         GameDrive drive = new GameDrive(bot);
+        TankDrive tank = new TankDrive(bot);
         double leftStickY = (double) -gamepad1.left_stick_y;
         double rightTrigger = (double) gamepad1.right_trigger;
         double leftTrigger = (double) gamepad1.left_trigger;
         double rightStickX = (double) gamepad1.right_stick_x;
-        drive.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, 0.0, 0.0);
+        if(TankDrive == -1) {
+            drive.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, 0.0, 0.0);
+        }
+        else if(TankDrive == 1){
+            tank.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, rightStickY, leftStickX);
+        }
         if(gamepad2.dpad_up)
             bot.lift.setPower(1);
         else if(gamepad2.dpad_down)
@@ -58,6 +65,8 @@ public class tele extends OpMode {
             bot.claw.setPosition(1.0);
         if(gamepad2.b)
             bot.claw.setPosition(0.0);
+        if(gamepad1.y)
+            TankDrive *= -1;
 //        double botTheta = bot.imu.getGyroRotation(AngleUnit.RADIANS);
         //The readings from the gyro are different from the reading needed for the field centric code, so we apply a function to fix it
 //        botTheta = (botTheta < 0) ? -botTheta : 2 * Math.PI - botTheta;
