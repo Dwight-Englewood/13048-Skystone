@@ -26,10 +26,8 @@ public class GameDrive {
             bot.drivePower(leftStickY);
         else if(rightStickX > 0.15 || rightStickX < -0.15)
            bot.turnPower(rightStickX);
-        else if (rightTrigger > 0.15)
-            bot.strafePower(-rightTrigger);
-        else if (leftTrigger > 0.15)
-            bot.strafePower(leftTrigger);
+        else if (leftStickX > 0.15 || leftStickX < -0.15)
+            bot.strafePower(leftStickX);
         else
             bot.stop();
     }

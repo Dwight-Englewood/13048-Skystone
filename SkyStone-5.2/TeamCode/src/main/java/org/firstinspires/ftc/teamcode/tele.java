@@ -48,15 +48,15 @@ public class tele extends OpMode {
         double leftTrigger = (double) gamepad1.left_trigger;
         double rightStickX = (double) gamepad1.right_stick_x;
         drive.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, 0.0, 0.0);
-        if(gamepad1.dpad_up)
+        if(gamepad2.dpad_up)
             bot.lift.setPower(1);
-        else if(gamepad1.dpad_down)
+        else if(gamepad2.dpad_down)
             bot.lift.setPower(-1);
         else
             bot.lift.setPower(0);
-        if(gamepad1.a)
+        if(gamepad2.a)
             bot.claw.setPosition(1.0);
-        if(gamepad1.b)
+        if(gamepad2.b)
             bot.claw.setPosition(0.0);
 //        double botTheta = bot.imu.getGyroRotation(AngleUnit.RADIANS);
         //The readings from the gyro are different from the reading needed for the field centric code, so we apply a function to fix it
