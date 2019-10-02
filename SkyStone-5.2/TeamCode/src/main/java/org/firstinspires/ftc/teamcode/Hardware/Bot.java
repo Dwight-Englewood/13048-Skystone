@@ -34,9 +34,9 @@ public class Bot {
     //double error = 180 - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
     //Double turnSpeed = 0.5;
     //Integer angle = -45;
-//    public static BNO055IMU gyro;
-//    BNO055IMU.Parameters parameters;
-//    Orientation angles;
+    public static BNO055IMU gyro;
+    BNO055IMU.Parameters parameters;
+    Orientation angles;
 
     public Bot() {
     }
@@ -68,15 +68,15 @@ public class Bot {
 //        hook.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-//        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-//        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
 
-//        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
-//        gyro = this.map.get(BNO055IMU.class, "gyro");
-//        gyro.initialize(parameters);
-//        tele.addData(">", "Gyro Calibrating. Do Not Move!");
-//        tele.update();
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        gyro = this.map.get(BNO055IMU.class, "gyro");
+        gyro.initialize(parameters);
+        tele.addData(">", "Gyro Calibrating. Do Not Move!");
+        tele.update();
 
 //        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        joint.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -169,39 +169,92 @@ public class Bot {
         else if ((Math.abs(FL.getCurrentPosition() / 200) <= FL.getTargetPosition())) {setPower(0.2);}
         else if ((Math.abs(FL.getCurrentPosition()) >= FL.getTargetPosition())) {setPower(0);}
     }
-    
-    //    public boolean adjustHeading(int targetHeading) {
-//        double curHeading = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-//        double headingError;
-//        headingError = targetHeading - curHeading;
-//        double driveScale = headingError;
-//        this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        if(headingError < -0.3)
-//            driveScale = -0.15;
-//        else if(headingError > 0.3)
-//            driveScale = 0.15;
-//        else {
-//            driveScale = 0;
-//            this.drive(MovementEnum.LEFTTURN, driveScale);
-//            return true;
-//        }
-//        this.drive(MovementEnum.LEFTTURN, driveScale);
-//        //    this.tele.addData("drive Scale",driveScale);
-//        //   tele.update();
-//        //   this.tankDrive(driveScale, -driveScale, 0, 0, false, false);
-//        // this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        return false;
-//    }
 
-//    public void headingAdjuster(int targetHeading) {
-//        if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-//            this.adjustHeading(targetHeading);
-//        }
-//        else if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
-//            this.drive(MovementEnum.STOP, 0);
-//            tele.update();
-//        }
-//    }
+    public void autonDrive(MovementEnum movement, int target) {
+        switch (movement) {
+            case FORWARD:
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(target);
+                break;
+
+            case BACKWARD:
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(-target);
+                BL.setTargetPosition(-target);
+                BR.setTargetPosition(-target);
+                break;
+
+            case LEFTSTRAFE:
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(-target);
+                break;
+
+            case RIGHTSTRAFE:
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(-target);
+                BL.setTargetPosition(-target);
+                BR.setTargetPosition(target);
+                break;
+
+            case LEFTTURN:
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(-target);
+                BR.setTargetPosition(target);
+                break;
+
+            case RIGHTTURN:
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(-target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(-target);
+                break;
+
+            case STOP:
+                FL.setTargetPosition(FL.getCurrentPosition());
+                FR.setTargetPosition(FR.getCurrentPosition());
+                BL.setTargetPosition(BL.getCurrentPosition());
+                BR.setTargetPosition(BR.getCurrentPosition());
+                break;
+        }
+    }
+
+    public boolean adjustHeading(int targetHeading) {
+        double curHeading = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        double headingError;
+        headingError = targetHeading - curHeading;
+        double driveScale = headingError;
+        this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if(headingError < -0.3)
+            driveScale = -0.15;
+        else if(headingError > 0.3)
+            driveScale = 0.15;
+        else {
+            driveScale = 0;
+            this.drivePower(driveScale);
+            return true;
+        }
+        this.turnPower(driveScale);
+        //    this.tele.addData("drive Scale",driveScale);
+        //   tele.update();
+        //   this.tankDrive(driveScale, -driveScale, 0, 0, false, false);
+        // this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        return false;
+    }
+
+    public void headingAdjuster(int targetHeading) {
+        if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+            this.adjustHeading(targetHeading);
+        }
+        else if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+            this.drivePower(0.0);
+            tele.update();
+        }
+    }
 
 
     public double motorSpeed() {
