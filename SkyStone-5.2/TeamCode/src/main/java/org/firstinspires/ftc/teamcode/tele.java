@@ -49,6 +49,8 @@ public class tele extends OpMode {
         double rightTrigger = (double) gamepad1.right_trigger;
         double leftTrigger = (double) gamepad1.left_trigger;
         double rightStickX = (double) gamepad1.right_stick_x;
+        double rightStickY = (double) -gamepad1.right_stick_y;
+        double leftStickX = (double) gamepad1.left_stick_x;
         if(TankDrive == -1) {
             drive.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, 0.0, 0.0);
         }
