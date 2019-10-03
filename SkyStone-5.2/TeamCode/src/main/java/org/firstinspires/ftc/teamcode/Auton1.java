@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
 import org.firstinspires.ftc.teamcode.Hardware.Bot;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.vuforia.CameraDevice;
+//import com.vuforia.CameraDevice;
 
 @Autonomous(name="Auton1", group="Autonomous")
 public class Auton1 extends OpMode {
