@@ -11,27 +11,28 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
-import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
-import org.firstinspires.ftc.teamcode.Hardware.bot;
+//import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
+import org.firstinspires.ftc.teamcode.Hardware.Bot;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.vuforia.CameraDevice;
 
 @Autonomous(name="Auton1", group="Autonomous")
-public class AutonCraterWithTensorFlow extends OpMode {
+public class Auton1 extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
 //    private DigitalChannel DigChannel;
-    bot robot = new bot();
+    Bot robot = new Bot();
+    int auto = 0;
 
     public void init() {
         robot.init(hardwareMap, telemetry, false);
-        tensorFlow.init(hardwareMap, telemetry);
+//        tensorFlow.init(hardwareMap, telemetry);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
 
 
-        robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        robot.hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -65,28 +66,18 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 break;
 
             case 1:
-                robot.hook.setTargetPosition(7055);
-                robot.hook.setPower(1);
-                robot.hook.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                //  BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
+                robot.autonDrive(MovementEnum.FORWARD, 10000);
 
-                if(!robot.hookLimit.getState() || robot.hook.getCurrentPosition() >= robot.hook.getTargetPosition()){
-                    robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE_VIOLET);
-                    robot.hook.setPower(0);
-                    telemetry.update();
+                if(robot.FL.getCurrentPosition() >= robot.FR.getTargetPosition()){
+                    robot.autonDrive(MovementEnum.STOP, 0);
                     auto++;
                 }
                 break;
 
             case 2:
-                robot.blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
-                if(Math.abs(0- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(0);
-                }
-                else if(Math.abs(0 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
-                    robot.drive(MovementEnum.STOP, 0);
+                robot.headingAdjuster(90);
+                if(robot.headingAdjuster(90))
                     auto++;
-                }
                 break;
 
             case 3:
@@ -94,7 +85,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 auto++;
                 break;
 
-            case 4:
+/*            case 4:
                 robot.autonDriveUltimate(MovementEnum.BACKWARD, 140, 0.5);
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
@@ -144,7 +135,7 @@ public class AutonCraterWithTensorFlow extends OpMode {
                 if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
                     auto++;
                 }
-                break;
+                break;*/
 
         }
         telemetry.update();

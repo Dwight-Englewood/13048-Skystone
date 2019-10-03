@@ -175,29 +175,29 @@ public class Bot {
             case FORWARD:
                 FL.setTargetPosition(target);
                 FR.setTargetPosition(target);
-                BL.setTargetPosition(target);
-                BR.setTargetPosition(target);
+                BL.setTargetPosition(-target);
+                BR.setTargetPosition(-target);
                 break;
 
             case BACKWARD:
-                FL.setTargetPosition(-target);
-                FR.setTargetPosition(-target);
-                BL.setTargetPosition(-target);
-                BR.setTargetPosition(-target);
+                FL.setTargetPosition(target);
+                FR.setTargetPosition(target);
+                BL.setTargetPosition(target);
+                BR.setTargetPosition(target);
                 break;
 
             case LEFTSTRAFE:
-                FL.setTargetPosition(-target);
+                FL.setTargetPosition(target);
                 FR.setTargetPosition(target);
                 BL.setTargetPosition(target);
-                BR.setTargetPosition(-target);
+                BR.setTargetPosition(target);
                 break;
 
             case RIGHTSTRAFE:
-                FL.setTargetPosition(target);
+                FL.setTargetPosition(-target);
                 FR.setTargetPosition(-target);
                 BL.setTargetPosition(-target);
-                BR.setTargetPosition(target);
+                BR.setTargetPosition(-target);
                 break;
 
             case LEFTTURN:
@@ -246,14 +246,17 @@ public class Bot {
         return false;
     }
 
-    public void headingAdjuster(int targetHeading) {
+    public boolean headingAdjuster(int targetHeading) {
         if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
             this.adjustHeading(targetHeading);
+            return false;
         }
         else if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
             this.drivePower(0.0);
             tele.update();
+            return true;
         }
+        return false;
     }
 
 

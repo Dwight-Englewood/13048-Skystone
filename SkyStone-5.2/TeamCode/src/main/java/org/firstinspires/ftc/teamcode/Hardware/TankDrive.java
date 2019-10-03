@@ -16,7 +16,7 @@ import java.lang.Math;
 
 public class TankDrive {
 
-  static  public Bot bot;
+  static public Bot bot;
 
 
     public TankDrive(Bot bot) {
@@ -24,8 +24,7 @@ public class TankDrive {
     }
 
 
-        public static void driveBot (double leftStickY, double rightStickX, double rightTrigger,
-        double leftTrigger, double rightStickY, double leftStickX){
+        public static void driveBot (double leftStickY, double rightStickX, double rightTrigger, double leftTrigger, double rightStickY, double leftStickX){
             if(leftStickY > 0.15 || leftStickY < -0.15){
                 bot.BL.setPower(-leftStickY);
                 bot.FL.setPower(leftStickY);
