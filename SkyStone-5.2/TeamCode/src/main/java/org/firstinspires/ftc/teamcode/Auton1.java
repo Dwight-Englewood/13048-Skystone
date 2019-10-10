@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -61,7 +61,7 @@ public class Auton1 extends OpMode {
         switch (auto) {
             case 0:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.claw.setPosition(0.0);
+                robot.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 auto++;
                 break;
 
