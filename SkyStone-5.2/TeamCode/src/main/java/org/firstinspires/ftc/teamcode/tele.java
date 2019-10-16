@@ -63,10 +63,16 @@ public class tele extends OpMode {
             bot.lift.setPower(-1);
         else
             bot.lift.setPower(0);
-        if(gamepad2.a)
-            bot.claw.setPosition(1.0);
-        if(gamepad2.b)
-            bot.claw.setPosition(0.0);
+        if(gamepad2.a) {
+            bot.claw.setPosition(0.5);
+            telemetry.addData(">", "0.5");
+            telemetry.update();
+        }
+        if(gamepad2.b) {
+            bot.claw.setPosition(0.3);
+            telemetry.addData(">", "0.3");
+            telemetry.update();
+        }
         if(gamepad1.y)
             TankDrive *= -1;
 //        double botTheta = bot.imu.getGyroRotation(AngleUnit.RADIANS);
