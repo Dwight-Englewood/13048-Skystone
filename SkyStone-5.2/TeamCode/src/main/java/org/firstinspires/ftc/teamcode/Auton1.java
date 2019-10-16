@@ -61,7 +61,7 @@ public class Auton1 extends OpMode {
         switch (auto) {
             case 0:
                 robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.claw.setPosition(0.0);
+                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
                 auto++;
                 break;
 
@@ -70,6 +70,7 @@ public class Auton1 extends OpMode {
 
                 if(robot.FL.getCurrentPosition() >= robot.FR.getTargetPosition()){
                     robot.autonDrive(MovementEnum.STOP, 0);
+                    robot.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
                     auto++;
                 }
                 break;
