@@ -58,6 +58,8 @@ public class Bot {
 //        door = this.map.get(Servo.class, "door");
         //  blinkin = this.map.get(RevBlinkinLedDriver.class, "rgbReady");
 
+        tele.addData(">", "1");
+        tele.update();
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         FL.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -67,10 +69,12 @@ public class Bot {
 //        inBOBO.setDirection(DcMotorSimple.Direction.FORWARD);
 //        hook.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        this.changeRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        tele.addData(">", "2");
+        tele.update();
 
         parameters.calibrationDataFile = "BNO055IMUCalibration.json";
         gyro = this.map.get(BNO055IMU.class, "gyro");
@@ -83,6 +87,13 @@ public class Bot {
 //
 //        hook.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+    }
+
+    public static void changeRunModeAuton(DcMotor.RunMode runMode) {
+        BL.setMode(runMode);
+        BR.setMode(runMode);
+        FL.setMode(runMode);
+        FR.setMode(runMode);
     }
 
     public static void changeRunMode(DcMotor.RunMode runMode) {

@@ -60,21 +60,25 @@ public class Auton1 extends OpMode {
     public void loop() {
         switch (auto) {
             case 0:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-<<<<<<< HEAD
-                robot.changeRunMode(DcMotor.RunMode.RUN_TO_POSITION);
-=======
-                robot.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
->>>>>>> fa748b26425b27396b0746eb476b58d96c350fdb
+                robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                telemetry.addData(">", robot.FL.getCurrentPosition());
+                telemetry.addData(">", auto);
+                telemetry.update();
+
+
                 auto++;
                 break;
 
             case 1:
                 robot.autonDrive(MovementEnum.FORWARD, 10000);
+                robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+//                robot.drivePower(1.0);
+                telemetry.addData(">", robot.FL.getCurrentPosition());
+                telemetry.update();
 
                 if(robot.FL.getCurrentPosition() >= robot.FR.getTargetPosition()){
                     robot.autonDrive(MovementEnum.STOP, 0);
-                    robot.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
                     auto++;
                 }
                 break;
@@ -86,7 +90,7 @@ public class Auton1 extends OpMode {
                 break;
 
             case 3:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
                 break;
 
