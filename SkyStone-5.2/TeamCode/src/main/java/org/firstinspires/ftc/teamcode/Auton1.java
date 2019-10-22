@@ -71,6 +71,7 @@ public class Auton1 extends OpMode {
 
             case 1:
                 robot.autonDrive(MovementEnum.FORWARD, 10000);
+                robot.drivePower(1);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
 //                robot.drivePower(1.0);
                 telemetry.addData(">", robot.FL.getCurrentPosition());
