@@ -16,10 +16,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 //import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class Bot {
-    public static DcMotor BL, BR, FL, FR, lift;
+    public static DcMotor BL, BR, FL, FR, TOP, BOT, LI, RI;
 //            , hook, lift, joint;
 //    public CRServo inBOBO;
-    public Servo claw;
+    public Servo LC, RC;
 //    public DigitalChannel liftLimit, hookLimit;
 //    public RevBlinkinLedDriver blinkin;
 //    int originTick;
@@ -50,9 +50,14 @@ public class Bot {
         BL = this.map.get(DcMotor.class, "BL");
         FL = this.map.get(DcMotor.class, "FL");
         FR = this.map.get(DcMotor.class, "FR");
-        lift = this.map.get(DcMotor.class, "lift");
-        claw = this.map.get(Servo.class, "claw");
-//        inBOBO = this.map.get(CRServo.class,"Bintake");
+        TOP = this.map.get(DcMotor.class, "FR");
+        BOT = this.map.get(DcMotor.class, "FR");
+        LI = this.map.get(DcMotor.class, "FR");
+        RI = this.map.get(DcMotor.class, "FR");
+//        lift = this.map.get(DcMotor.class, "lift");
+
+        LC = this.map.get(Servo.class, "LC");
+        RC = this.map.get(Servo.class, "RC");
 //        joint = this.map.get(DcMotor.class, "joint");
 
 //        door = this.map.get(Servo.class, "door");
@@ -64,7 +69,11 @@ public class Bot {
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         FL.setDirection(DcMotorSimple.Direction.FORWARD);
         FR.setDirection(DcMotorSimple.Direction.REVERSE);
-        lift.setDirection(DcMotorSimple.Direction.REVERSE);
+        TOP.setDirection(DcMotorSimple.Direction.FORWARD);
+        BOT.setDirection(DcMotorSimple.Direction.FORWARD);
+        LI.setDirection(DcMotorSimple.Direction.FORWARD);
+        RI.setDirection(DcMotorSimple.Direction.FORWARD);
+//        lift.setDirection(DcMotorSimple.Direction.REVERSE);
 //        joint.setDirection(DcMotorSimple.Direction.FORWARD);
 //        inBOBO.setDirection(DcMotorSimple.Direction.FORWARD);
 //        hook.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -101,8 +110,12 @@ public class Bot {
         BR.setMode(runMode);
         FL.setMode(runMode);
         FR.setMode(runMode);
+        TOP.setMode(runMode);
+        BOT.setMode(runMode);
+        RI.setMode(runMode);
+        LI.setMode(runMode);
 //        hook.setMode(runMode);
-        lift.setMode(runMode);
+//        lift.setMode(runMode);
 //        joint.setMode(runMode);
         //  intake.setMode(runMode);
     }
@@ -168,6 +181,16 @@ public class Bot {
     }
     public void setPower(double power) {
         strafePower(power);
+    }
+
+    public void suck(double power){
+        LI.setPower(power);
+        RI.setPower(power);
+    }
+
+    public void lift(double power){
+        TOP.setPower(power);
+        BOT.setPower(power);
     }
 
 
