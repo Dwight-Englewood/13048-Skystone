@@ -48,7 +48,41 @@ public class TeleNew extends OpMode {
         double leftTrigger = (double) gamepad1.left_trigger;
         double rightStickX = (double) gamepad1.right_stick_x;
         double rightStickY = (double) -gamepad1.right_stick_y;
+
+        double leftTriggerIntake = (double) gamepad2.left_trigger;
+        double rightTriggerIntake = (double) gamepad2.right_trigger;
+        double leftStickServo = (double) gamepad2.left_stick_x;
+        double rightStickServo = (double) gamepad2.right_stick_x;
+
         drive.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, 0.0, 0.0);
+        if(leftTriggerIntake > 0.15)
+            bot.LI.setPower(leftTriggerIntake);
+        else
+            bot.LI.setPower(0.0);
+        if(rightTriggerIntake > 0.15)
+            bot.RI.setPower(rightTriggerIntake);
+        else
+            bot.RI.setPower(0.0);
+        if(leftStickServo > 0.15 || leftStickServo < -0.15) {
+            if(leftStickServo < 0.5 || leftStickServo > 0.5)
+                bot.LC.setPower(leftStickServo);
+            else if(leftStickServo < 0)
+                bot.LC.setPower(-0.5);
+            else
+                bot.LC.setPower(0.5);
+        }
+        if(rightStickServo > 0.15 || rightStickServo < -0.15) {
+            if(rightStickServo < 0.5 || rightStickServo > 0.5)
+                bot.RC.setPower(rightStickServo);
+            else if(rightStickServo < 0)
+                bot.RC.setPower(-0.5);
+            else
+                bot.RC.setPower(0.5);
+        }
+        if(gamepad2.right_bumper)
+            bot.lift(1.0);
+        if(gamepad2.left_bumper)
+            bot.lift(0.0);
 
 
     }

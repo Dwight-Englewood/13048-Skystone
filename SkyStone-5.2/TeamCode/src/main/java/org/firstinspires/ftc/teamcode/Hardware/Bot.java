@@ -19,7 +19,7 @@ public class Bot {
     public static DcMotor BL, BR, FL, FR, TOP, BOT, LI, RI;
 //            , hook, lift, joint;
 //    public CRServo inBOBO;
-    public Servo LC, RC;
+    public CRServo LC, RC;
 //    public DigitalChannel liftLimit, hookLimit;
 //    public RevBlinkinLedDriver blinkin;
 //    int originTick;
@@ -50,14 +50,14 @@ public class Bot {
         BL = this.map.get(DcMotor.class, "BL");
         FL = this.map.get(DcMotor.class, "FL");
         FR = this.map.get(DcMotor.class, "FR");
-        TOP = this.map.get(DcMotor.class, "FR");
-        BOT = this.map.get(DcMotor.class, "FR");
-        LI = this.map.get(DcMotor.class, "FR");
-        RI = this.map.get(DcMotor.class, "FR");
+        TOP = this.map.get(DcMotor.class, "TOP");
+        BOT = this.map.get(DcMotor.class, "BOT");
+        LI = this.map.get(DcMotor.class, "LI");
+        RI = this.map.get(DcMotor.class, "RI");
 //        lift = this.map.get(DcMotor.class, "lift");
 
-        LC = this.map.get(Servo.class, "LC");
-        RC = this.map.get(Servo.class, "RC");
+        LC = this.map.get(CRServo.class, "LC");
+        RC = this.map.get(CRServo.class, "RC");
 //        joint = this.map.get(DcMotor.class, "joint");
 
 //        door = this.map.get(Servo.class, "door");
@@ -71,8 +71,10 @@ public class Bot {
         FR.setDirection(DcMotorSimple.Direction.REVERSE);
         TOP.setDirection(DcMotorSimple.Direction.FORWARD);
         BOT.setDirection(DcMotorSimple.Direction.FORWARD);
-        LI.setDirection(DcMotorSimple.Direction.FORWARD);
+        LI.setDirection(DcMotorSimple.Direction.REVERSE);
         RI.setDirection(DcMotorSimple.Direction.FORWARD);
+        LC.setDirection(DcMotorSimple.Direction.REVERSE);
+        RC.setDirection(DcMotorSimple.Direction.REVERSE);
 //        lift.setDirection(DcMotorSimple.Direction.REVERSE);
 //        joint.setDirection(DcMotorSimple.Direction.FORWARD);
 //        inBOBO.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -192,6 +194,7 @@ public class Bot {
         TOP.setPower(power);
         BOT.setPower(power);
     }
+
 
 
     public void PID() {
