@@ -17,10 +17,10 @@ import org.firstinspires.ftc.teamcode.Hardware.Bot;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 //import com.vuforia.CameraDevice;
 
-@Autonomous(name="Auton1", group="Autonomous")
-public class Auton1 extends OpMode {
+@Autonomous(name="Auton2", group="Autonomous")
+public class Auton2 extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
-//    private DigitalChannel DigChannel;
+    //    private DigitalChannel DigChannel;
     Bot robot = new Bot();
     int auto = 0;
 
@@ -70,6 +70,22 @@ public class Auton1 extends OpMode {
                 break;
 
             case 1:
+                robot.autonDrive(MovementEnum.FORWARD, 7);
+                robot.drivePower(0.5);
+                robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+//                robot.drivePower(1.0);
+                telemetry.addData("FR: ", robot.FR.getCurrentPosition());
+
+                telemetry.update();
+
+                if(-robot.FR.getCurrentPosition() >= 5){
+                    robot.autonDrive(MovementEnum.STOP, 0);
+                    robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    auto++;
+                }
+                break;
+
+            case 2:
                 robot.autonDrive(MovementEnum.RIGHTSTRAFE, 5);
                 robot.drivePower(0.5);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
@@ -83,12 +99,6 @@ public class Auton1 extends OpMode {
                     robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
                     auto++;
                 }
-                break;
-
-            case 2:
-                robot.headingAdjuster(90);
-                if(robot.headingAdjuster(90))
-                    auto++;
                 break;
 
             case 3:

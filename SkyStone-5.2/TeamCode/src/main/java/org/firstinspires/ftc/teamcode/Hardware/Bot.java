@@ -266,9 +266,9 @@ public class Bot {
         headingError = targetHeading - curHeading;
         double driveScale = headingError;
         this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if(headingError < -0.3)
+        if(headingError < -15)
             driveScale = -0.15;
-        else if(headingError > 0.3)
+        else if(headingError > 15)
             driveScale = 0.15;
         else {
             driveScale = 0;
@@ -284,11 +284,11 @@ public class Bot {
     }
 
     public boolean headingAdjuster(int targetHeading) {
-        if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
+        if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 15) {
             this.adjustHeading(targetHeading);
             return false;
         }
-        else if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
+        else if(Math.abs(targetHeading - gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 15) {
             this.drivePower(0.0);
             tele.update();
             return true;
