@@ -16,8 +16,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 //import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class Bot {
-    public static DcMotor BL, BR, FL, FR, TOP, BOT, LI, RI;
-//            , hook, lift, joint;
+    public static DcMotor BL, BR, FL, FR, hook, lift;
+
+//  TOP, BOT, LI, RI, jointl;
 //    public CRServo inBOBO;
     public CRServo LC, RC;
 //    public DigitalChannel liftLimit, hookLimit;
@@ -50,11 +51,11 @@ public class Bot {
         BL = this.map.get(DcMotor.class, "BL");
         FL = this.map.get(DcMotor.class, "FL");
         FR = this.map.get(DcMotor.class, "FR");
-        TOP = this.map.get(DcMotor.class, "TOP");
-        BOT = this.map.get(DcMotor.class, "BOT");
-        LI = this.map.get(DcMotor.class, "LI");
-        RI = this.map.get(DcMotor.class, "RI");
-//        lift = this.map.get(DcMotor.class, "lift");
+//        TOP = this.map.get(DcMotor.class, "TOP");
+//        BOT = this.map.get(DcMotor.class, "BOT");
+//        LI = this.map.get(DcMotor.class, "LI");
+//        RI = this.map.get(DcMotor.class, "RI");
+        lift = this.map.get(DcMotor.class, "lift");
 
         LC = this.map.get(CRServo.class, "LC");
         RC = this.map.get(CRServo.class, "RC");
@@ -69,9 +70,9 @@ public class Bot {
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         FL.setDirection(DcMotorSimple.Direction.FORWARD);
         FR.setDirection(DcMotorSimple.Direction.REVERSE);
-        TOP.setDirection(DcMotorSimple.Direction.FORWARD);
-        BOT.setDirection(DcMotorSimple.Direction.FORWARD);
-        LI.setDirection(DcMotorSimple.Direction.REVERSE);
+//        TOP.setDirection(DcMotorSimple.Direction.FORWARD);
+//        BOT.setDirection(DcMotorSimple.Direction.FORWARD);
+//       LI.setDirection(DcMotorSimple.Direction.REVERSE);
         RI.setDirection(DcMotorSimple.Direction.FORWARD);
         LC.setDirection(DcMotorSimple.Direction.REVERSE);
         RC.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -112,10 +113,10 @@ public class Bot {
         BR.setMode(runMode);
         FL.setMode(runMode);
         FR.setMode(runMode);
-        TOP.setMode(runMode);
-        BOT.setMode(runMode);
-        RI.setMode(runMode);
-        LI.setMode(runMode);
+  //      TOP.setMode(runMode);
+  //      BOT.setMode(runMode);
+  //      RI.setMode(runMode);
+  //      LI.setMode(runMode);
 //        hook.setMode(runMode);
 //        lift.setMode(runMode);
 //        joint.setMode(runMode);
@@ -186,13 +187,15 @@ public class Bot {
     }
 
     public void suck(double power){
-        LI.setPower(power);
-        RI.setPower(power);
+//        LI.setPower(power);
+//        RI.setPower(power);
     }
 
     public void lift(double power){
-        TOP.setPower(power);
-        BOT.setPower(power);
+        lift.setPower(power);
+        //  TOP.setPower(power);
+        // BOT.setPower(power);
+
     }
 
 
