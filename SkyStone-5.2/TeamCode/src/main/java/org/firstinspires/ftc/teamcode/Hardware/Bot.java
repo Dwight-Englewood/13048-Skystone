@@ -16,9 +16,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 //import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class Bot {
-    public static DcMotor BL, BR, FL, FR, hook, lift;
+    public static DcMotor BL, BR, FL, FR, LI, RI, hook, lift;
 
-//  TOP, BOT, LI, RI, jointl;
+//  TOP, BOT, jointl;
 //    public CRServo inBOBO;
     public CRServo LC, RC;
 //    public DigitalChannel liftLimit, hookLimit;
@@ -53,8 +53,8 @@ public class Bot {
         FR = this.map.get(DcMotor.class, "FR");
 //        TOP = this.map.get(DcMotor.class, "TOP");
 //        BOT = this.map.get(DcMotor.class, "BOT");
-//        LI = this.map.get(DcMotor.class, "LI");
-//        RI = this.map.get(DcMotor.class, "RI");
+        LI = this.map.get(DcMotor.class, "LI");
+        RI = this.map.get(DcMotor.class, "RI");
         lift = this.map.get(DcMotor.class, "lift");
 
         LC = this.map.get(CRServo.class, "LC");
@@ -72,11 +72,11 @@ public class Bot {
         FR.setDirection(DcMotorSimple.Direction.REVERSE);
 //        TOP.setDirection(DcMotorSimple.Direction.FORWARD);
 //        BOT.setDirection(DcMotorSimple.Direction.FORWARD);
-//       LI.setDirection(DcMotorSimple.Direction.REVERSE);
+        LI.setDirection(DcMotorSimple.Direction.REVERSE);
         RI.setDirection(DcMotorSimple.Direction.FORWARD);
-        LC.setDirection(DcMotorSimple.Direction.REVERSE);
-        RC.setDirection(DcMotorSimple.Direction.REVERSE);
-//        lift.setDirection(DcMotorSimple.Direction.REVERSE);
+//        LC.setDirection(DcMotorSimple.Direction.REVERSE);
+//        RC.setDirection(DcMotorSimple.Direction.REVERSE);
+        lift.setDirection(DcMotorSimple.Direction.REVERSE);
 //        joint.setDirection(DcMotorSimple.Direction.FORWARD);
 //        inBOBO.setDirection(DcMotorSimple.Direction.FORWARD);
 //        hook.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -118,7 +118,7 @@ public class Bot {
   //      RI.setMode(runMode);
   //      LI.setMode(runMode);
 //        hook.setMode(runMode);
-//        lift.setMode(runMode);
+        lift.setMode(runMode);
 //        joint.setMode(runMode);
         //  intake.setMode(runMode);
     }
