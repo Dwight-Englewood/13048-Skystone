@@ -16,11 +16,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 //import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class Bot {
-    public static DcMotor BL, BR, FL, FR, LI, RI, hook, lift;
+    public static DcMotor BL, BR, FL, FR, LI, RI, lift;
 
 //  TOP, BOT, jointl;
 //    public CRServo inBOBO;
     public CRServo LC, RC;
+    public Servo claw;
 //    public DigitalChannel liftLimit, hookLimit;
 //    public RevBlinkinLedDriver blinkin;
 //    int originTick;
@@ -28,7 +29,7 @@ public class Bot {
     Telemetry tele;
 //    TensorFlow tensorFlow;
 
-    Double powerModifier = 0.02;
+//    Double powerModifier = 0.02;
     double turnSpeed = 0.25;
     final double proportionalValue = 0.000005;
 
@@ -59,6 +60,7 @@ public class Bot {
 
         LC = this.map.get(CRServo.class, "LC");
         RC = this.map.get(CRServo.class, "RC");
+        claw = this.map.get(Servo.class, "claw" );
 //        joint = this.map.get(DcMotor.class, "joint");
 
 //        door = this.map.get(Servo.class, "door");
