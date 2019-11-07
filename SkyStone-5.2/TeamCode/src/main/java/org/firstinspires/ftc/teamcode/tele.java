@@ -51,11 +51,19 @@ public class tele extends OpMode {
         double rightStickX = (double) gamepad1.right_stick_x;
         double rightStickY = (double) -gamepad1.right_stick_y;
         double leftStickX = (double) gamepad1.left_stick_x;
-        if(TankDrive == -1) {
+        double leftTrigger2 = (double) gamepad2.left_trigger;
+        double rightTrigger2 = (double) gamepad2.right_trigger;
+        if(!gamepad1.right_bumper) {
             drive.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, 0.0, 0.0);
         }
-        else if(TankDrive == 1){
-            tank.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, rightStickY, leftStickX);
+        else if(rightStickX < -0.15 && gamepad1.right_bumper) {
+            bot.turnPower(-0.10);
+        }
+        else if(rightStickX > 0.15 && gamepad1.right_bumper){
+            bot.turnPower(0.10);
+        }
+        else{
+            bot.stop();
         }
         if(gamepad2.dpad_up)
             bot.lift.setPower(1);
@@ -64,17 +72,36 @@ public class tele extends OpMode {
         else
             bot.lift.setPower(0);
         if(gamepad2.a) {
-            bot.claw.setPosition(0.5);
-            telemetry.addData(">", "0.5");
+            bot.claw.setPosition(0.1);
+            telemetry.addData(">", "0.1");
             telemetry.update();
         }
         if(gamepad2.b) {
-            bot.claw.setPosition(0.3);
-            telemetry.addData(">", "0.3");
+            bot.claw.setPosition(0.9);
+            telemetry.addData(">", "0.9");
             telemetry.update();
         }
-        if(gamepad1.y)
-            TankDrive *= -1;
+        if(gamepad2.right_trigger > 0.15  ) {
+            bot.lHook.setPosition(1.0);
+
+        }
+        else if(gamepad2.right_trigger < -0.15) {
+            bot.lHook.setPosition(0.1);
+        }
+        if(gamepad2.left_trigger > 0.15) {
+            bot.rHook.setPosition(1);
+        }
+        else if(gamepad2.right_trigger < -0.15 ) {
+            bot.rHook.setPosition(0.1);
+        }
+//        if(gamepad2.right_stick_y > 0.15)
+//            bot.FR.setPower((double) gamepad2.right_stick_y);
+//        else
+//            bot.FR.setPower(0.0);
+//        if(gamepad2.left_stick_y > 0.15)
+//            bot.FL.setPower((double) gamepad2.left_stick_y);
+//        else
+//            bot.FL.setPower(0.0);
 //        double botTheta = bot.imu.getGyroRotation(AngleUnit.RADIANS);
         //The readings from the gyro are different from the reading needed for the field centric code, so we apply a function to fix it
 //        botTheta = (botTheta < 0) ? -botTheta : 2 * Math.PI - botTheta;

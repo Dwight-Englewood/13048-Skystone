@@ -16,12 +16,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 //import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class Bot {
-    public static DcMotor BL, BR, FL, FR, LI, RI, lift;
+    public static DcMotor BL, BR, FL, FR, lift;
+//    public static DcMotor LI, RI;
 
 //  TOP, BOT, jointl;
 //    public CRServo inBOBO;
-    public CRServo LC, RC;
-    public Servo claw;
+//    public CRServo LC, RC;
+    public Servo claw, rHook, lHook;
+
 //    public DigitalChannel liftLimit, hookLimit;
 //    public RevBlinkinLedDriver blinkin;
 //    int originTick;
@@ -54,13 +56,15 @@ public class Bot {
         FR = this.map.get(DcMotor.class, "FR");
 //        TOP = this.map.get(DcMotor.class, "TOP");
 //        BOT = this.map.get(DcMotor.class, "BOT");
-        LI = this.map.get(DcMotor.class, "LI");
-        RI = this.map.get(DcMotor.class, "RI");
+//        LI = this.map.get(DcMotor.class, "LI");
+//        RI = this.map.get(DcMotor.class, "RI");
         lift = this.map.get(DcMotor.class, "lift");
 
-        LC = this.map.get(CRServo.class, "LC");
-        RC = this.map.get(CRServo.class, "RC");
+//        LC = this.map.get(CRServo.class, "LC");
+//        RC = this.map.get(CRServo.class, "RC");
         claw = this.map.get(Servo.class, "claw" );
+        lHook = this.map.get(Servo.class, "left hook");
+        rHook = this.map.get(Servo.class, "right hook");
 //        joint = this.map.get(DcMotor.class, "joint");
 
 //        door = this.map.get(Servo.class, "door");
@@ -71,11 +75,11 @@ public class Bot {
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         FL.setDirection(DcMotorSimple.Direction.FORWARD);
-        FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        FR.setDirection( DcMotorSimple.Direction.REVERSE);
 //        TOP.setDirection(DcMotorSimple.Direction.FORWARD);
 //        BOT.setDirection(DcMotorSimple.Direction.FORWARD);
-        LI.setDirection(DcMotorSimple.Direction.REVERSE);
-        RI.setDirection(DcMotorSimple.Direction.FORWARD);
+   //     LI.setDirection(DcMotorSimple.Direction.REVERSE);
+   //     RI.setDirection(DcMotorSimple.Direction.FORWARD);
 //        LC.setDirection(DcMotorSimple.Direction.REVERSE);
 //        RC.setDirection(DcMotorSimple.Direction.REVERSE);
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -212,20 +216,23 @@ public class Bot {
         else if ((Math.abs(FL.getCurrentPosition()) >= FL.getTargetPosition())) {setPower(0);}
     }
 
-    public void autonDrive(MovementEnum movement, int target) {
+    public int autonDrive(MovementEnum movement, int target) {
+        int x = -1;
         switch (movement) {
             case FORWARD:
                 FL.setTargetPosition(target);
                 FR.setTargetPosition(target);
                 BL.setTargetPosition(-target);
                 BR.setTargetPosition(-target);
+                x = Math.max(-BR.getCurrentPosition(), Math.max(-BL.getCurrentPosition(), Math.max(FR.getCurrentPosition(), FL.getCurrentPosition())));
                 break;
 
             case BACKWARD:
-                FL.setTargetPosition(target);
-                FR.setTargetPosition(target);
+                FL.setTargetPosition(-target);
+                FR.setTargetPosition(-target);
                 BL.setTargetPosition(target);
                 BR.setTargetPosition(target);
+                x = Math.max(BR.getCurrentPosition(), Math.max(BL.getCurrentPosition(), Math.max(-FR.getCurrentPosition(), -FL.getCurrentPosition())));
                 break;
 
             case LEFTSTRAFE:
@@ -233,13 +240,19 @@ public class Bot {
                 FR.setTargetPosition(target);
                 BL.setTargetPosition(target);
                 BR.setTargetPosition(target);
+                x = Math.max(BR.getCurrentPosition(), Math.max(BL.getCurrentPosition(), Math.max(FR.getCurrentPosition(), FL.getCurrentPosition())));
                 break;
 
             case RIGHTSTRAFE:
+//                FL.setTargetPosition(-target);
+//                FR.setTargetPosition(target);
+//                BL.setTargetPosition(target);
+//                BR.setTargetPosition(-target);
                 FL.setTargetPosition(-target);
                 FR.setTargetPosition(-target);
                 BL.setTargetPosition(-target);
                 BR.setTargetPosition(-target);
+                x = Math.max(-BR.getCurrentPosition(), Math.max(-BL.getCurrentPosition(), Math.max(-FR.getCurrentPosition(), -FL.getCurrentPosition())));
                 break;
 
             case LEFTTURN:
@@ -247,6 +260,7 @@ public class Bot {
                 FR.setTargetPosition(target);
                 BL.setTargetPosition(-target);
                 BR.setTargetPosition(target);
+                x = Math.max(BR.getCurrentPosition(), Math.max(-BL.getCurrentPosition(), Math.max(FR.getCurrentPosition(), -FL.getCurrentPosition())));
                 break;
 
             case RIGHTTURN:
@@ -254,6 +268,7 @@ public class Bot {
                 FR.setTargetPosition(-target);
                 BL.setTargetPosition(target);
                 BR.setTargetPosition(-target);
+                x = Math.max(-BR.getCurrentPosition(), Math.max(BL.getCurrentPosition(), Math.max(-FR.getCurrentPosition(), FL.getCurrentPosition())));
                 break;
 
             case STOP:
@@ -263,6 +278,7 @@ public class Bot {
                 BR.setTargetPosition(BR.getCurrentPosition());
                 break;
         }
+        return x;
     }
 
     public boolean adjustHeading(int targetHeading) {

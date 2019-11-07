@@ -13,12 +13,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Hardware.MovementEnum;
 //import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 import org.firstinspires.ftc.teamcode.Hardware.Bot;
+import java.lang.Thread;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 //import com.vuforia.CameraDevice;
 
-@Autonomous(name="Auton1", group="Autonomous")
-public class Auton1 extends OpMode {
+@Autonomous(name="AutonRight", group="Autonomous")
+public class Auton1 extends OpMode{
     private ElapsedTime runtime = new ElapsedTime();
 //    private DigitalChannel DigChannel;
     Bot robot = new Bot();
@@ -57,7 +58,8 @@ public class Auton1 extends OpMode {
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
     @Override
-    public void loop() {
+    public void loop(){
+        try{
         switch (auto) {
             case 0:
                 robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -70,85 +72,118 @@ public class Auton1 extends OpMode {
                 break;
 
             case 1:
-                robot.autonDrive(MovementEnum.RIGHTSTRAFE, 5);
-                robot.drivePower(0.5);
+               int en = robot.autonDrive(MovementEnum.FORWARD, 3300);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.drivePower(0.5);
 //                robot.drivePower(1.0);
+                telemetry.addData("Cas1, en: ", en);
+                telemetry.addData("FL: ", robot.FL.getCurrentPosition());
                 telemetry.addData("FR: ", robot.FR.getCurrentPosition());
+                telemetry.addData("BL: ", robot.BL.getCurrentPosition());
+                telemetry.addData("BR: ", robot.BR.getCurrentPosition());
+
 
                 telemetry.update();
 
-                if(-robot.FR.getCurrentPosition() >= 5){
+
+                if(en >= 3300){
                     robot.autonDrive(MovementEnum.STOP, 0);
                     robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                    robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.strafePower(0.0);
                     auto++;
                 }
                 break;
 
             case 2:
-                robot.headingAdjuster(90);
-                if(robot.headingAdjuster(90))
+
+                en = robot.autonDrive(MovementEnum.LEFTSTRAFE, 750);
+                robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.drivePower(0.5);
+//                robot.drivePower(1.0);
+                telemetry.addData("Cas1, en: ", en);
+                telemetry.addData("FL: ", robot.FL.getCurrentPosition());
+                telemetry.addData("FR: ", robot.FR.getCurrentPosition());
+                telemetry.addData("BL: ", robot.BL.getCurrentPosition());
+                telemetry.addData("BR: ", robot.BR.getCurrentPosition());
+
+
+                telemetry.update();
+
+
+                if(en >= 750){
+                    robot.autonDrive(MovementEnum.STOP, 0);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                    robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.strafePower(0.0);
+                    robot.lHook.setPosition(0.0);
+                    robot.rHook.setPosition(1.0);
+                    Thread.sleep(1000);
                     auto++;
+                }
                 break;
 
             case 3:
-                robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
+                en = robot.autonDrive(MovementEnum.BACKWARD, 3000);
+                robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.drivePower(-0.75);
+//                robot.drivePower(1.0);
+                telemetry.addData("Cas1, en: ", en);
+                telemetry.addData("FL: ", robot.FL.getCurrentPosition());
+                telemetry.addData("FR: ", robot.FR.getCurrentPosition());
+                telemetry.addData("BL: ", robot.BL.getCurrentPosition());
+                telemetry.addData("BR: ", robot.BR.getCurrentPosition());
 
-/*            case 4:
-                robot.autonDriveUltimate(MovementEnum.BACKWARD, 140, 0.5);
-                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+
+                telemetry.update();
+
+
+                if(en >= 3000){
+                    robot.autonDrive(MovementEnum.STOP, 0);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                    robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.strafePower(0.0);
                     auto++;
                 }
+                break;
+
+            case 4:
+                robot.lHook.setPosition(1.0);
+                robot.rHook.setPosition(0.0);
+                Thread.sleep(1000);
+                auto++;
                 break;
 
             case 5:
-                BigThonk = (BigThonk != TensorFlow.TFState.NOTVISIBLE) ? BigThonk : tensorFlow.getState();
-                if(BigThonk != TensorFlow.TFState.NOTVISIBLE){auto++;}
-                else {
-                    BigThonk = TensorFlow.TFState.RIGHT;
-                    auto = 6;
-                }
-                break;
+                en = robot.autonDrive(MovementEnum.RIGHTSTRAFE, 3750);
+                robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.strafePower(-0.5);
+//                robot.drivePower(1.0);
+                telemetry.addData("Cas1, en: ", en);
+                telemetry.addData("FL: ", robot.FL.getCurrentPosition());
+                telemetry.addData("FR: ", robot.FR.getCurrentPosition());
+                telemetry.addData("BL: ", robot.BL.getCurrentPosition());
+                telemetry.addData("BR: ", robot.BR.getCurrentPosition());
 
-            case 6:
-                CameraDevice.getInstance().setFlashTorchMode(false);
-                tensorFlow.stop();
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
 
-            case 7:
-                robot.autonDriveUltimate(MovementEnum.RIGHTSTRAFE, 280, 0.2);
-                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
+                telemetry.update();
+
+
+                if(en >= 3750){
+                    robot.autonDrive(MovementEnum.STOP, 0);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                    robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.strafePower(0.0);
                     auto++;
                 }
                 break;
 
-            case 8:
-                if(Math.abs(-80- robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) > 3) {
-                    robot.adjustHeading(-80);
-                }
-                else if(Math.abs(-80 - robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle ) < 3) {
-                    robot.drive(MovementEnum.STOP, 0);
-                    auto++;
-                }
-                break;
-
-            case 9:
-                robot.changeRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                auto++;
-                break;
-
-            case 10:
-                robot.autonDriveUltimate(MovementEnum.FORWARD, 280, 0.6);
-                if (Math.abs(robot.FL.getCurrentPosition()) >= Math.abs(robot.FL.getTargetPosition())){
-                    auto++;
-                }
-                break;*/
 
         }
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();  // set interrupt flag
+        System.out.println("Failed to compute sum");
+    }
         telemetry.update();
     }
 }

@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Bot;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 //import com.vuforia.CameraDevice;
 
-@Autonomous(name="AutonFwRight", group="Autonomous")
-public class Auton2 extends OpMode {
+@Autonomous(name="AutonFwLeft", group="Autonomous")
+public class Auton4 extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     //    private DigitalChannel DigChannel;
     Bot robot = new Bot();
@@ -86,8 +86,8 @@ public class Auton2 extends OpMode {
                 break;
 
             case 2:
-                en = robot.autonDrive(MovementEnum.RIGHTSTRAFE, 2500);
-                robot.strafePower(- 0.5);
+                en = robot.autonDrive(MovementEnum.LEFTSTRAFE, 2500);
+                robot.strafePower(0.5);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
 //                robot.drivePower(1.0);
                 telemetry.addData("Cas2, en: ", en);

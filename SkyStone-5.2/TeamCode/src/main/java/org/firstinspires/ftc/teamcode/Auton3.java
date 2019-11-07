@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Bot;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 //import com.vuforia.CameraDevice;
 
-@Autonomous(name="AutonFwRight", group="Autonomous")
-public class Auton2 extends OpMode {
+@Autonomous(name="AutonLeft", group="Autonomous")
+public class Auton3 extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     //    private DigitalChannel DigChannel;
     Bot robot = new Bot();
@@ -70,37 +70,30 @@ public class Auton2 extends OpMode {
                 break;
 
             case 1:
-                int en = robot.autonDrive(MovementEnum.FORWARD, 2500);
-                robot.drivePower(0.5);
+                int en = robot.autonDrive(MovementEnum.LEFTSTRAFE, 2500);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.strafePower(0.5);
 //                robot.drivePower(1.0);
                 telemetry.addData("Cas1, en: ", en);
+                telemetry.addData("FL: ", robot.FL.getCurrentPosition());
+                telemetry.addData("FR: ", robot.FR.getCurrentPosition());
+                telemetry.addData("BL: ", robot.BL.getCurrentPosition());
+                telemetry.addData("BR: ", robot.BR.getCurrentPosition());
+
 
                 telemetry.update();
 
+
                 if(en >= 2500){
                     robot.autonDrive(MovementEnum.STOP, 0);
-                    robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                    robot.strafePower(0.0);
                     auto++;
                 }
                 break;
 
             case 2:
-                en = robot.autonDrive(MovementEnum.RIGHTSTRAFE, 2500);
-                robot.strafePower(- 0.5);
-                robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
-//                robot.drivePower(1.0);
-                telemetry.addData("Cas2, en: ", en);
-
-                telemetry.update();
-
-                if(en >= 2500){
-                    robot.autonDrive(MovementEnum.STOP, 0);
-                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
-                    auto++;
-                }
                 break;
-
             case 3:
                 robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 auto++;
