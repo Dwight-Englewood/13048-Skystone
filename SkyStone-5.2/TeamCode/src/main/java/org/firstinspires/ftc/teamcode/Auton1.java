@@ -97,7 +97,7 @@ public class Auton1 extends OpMode{
 
             case 2:
 
-                en = robot.autonDrive(MovementEnum.LEFTSTRAFE, 750);
+                en = robot.autonDrive(MovementEnum.LEFTSTRAFE, 1200);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.drivePower(0.5);
 //                robot.drivePower(1.0);
@@ -111,7 +111,7 @@ public class Auton1 extends OpMode{
                 telemetry.update();
 
 
-                if(en >= 750){
+                if(en >= 1200){
                     robot.autonDrive(MovementEnum.STOP, 0);
                     robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
                     robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -124,7 +124,7 @@ public class Auton1 extends OpMode{
                 break;
 
             case 3:
-                en = robot.autonDrive(MovementEnum.BACKWARD, 3000);
+                en = robot.autonDrive(MovementEnum.BACKWARD, 3400);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.drivePower(-0.75);
 //                robot.drivePower(1.0);
@@ -138,7 +138,7 @@ public class Auton1 extends OpMode{
                 telemetry.update();
 
 
-                if(en >= 3000){
+                if(en >= 3400){
                     robot.autonDrive(MovementEnum.STOP, 0);
                     robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
                     robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -149,13 +149,13 @@ public class Auton1 extends OpMode{
 
             case 4:
                 robot.lHook.setPosition(1.0);
-                robot.rHook.setPosition(0.0);
+                robot.rHook.setPosition(0.15);
                 Thread.sleep(1000);
                 auto++;
                 break;
 
             case 5:
-                en = robot.autonDrive(MovementEnum.RIGHTSTRAFE, 3750);
+                en = robot.autonDrive(MovementEnum.RIGHTSTRAFE, 4900);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.strafePower(-0.5);
 //                robot.drivePower(1.0);
@@ -169,7 +169,7 @@ public class Auton1 extends OpMode{
                 telemetry.update();
 
 
-                if(en >= 3750){
+                if(en >= 4900){
                     robot.autonDrive(MovementEnum.STOP, 0);
                     robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
                     robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
