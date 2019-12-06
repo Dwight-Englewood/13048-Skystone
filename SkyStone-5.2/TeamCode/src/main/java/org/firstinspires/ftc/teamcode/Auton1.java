@@ -18,7 +18,7 @@ import java.lang.Thread;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 //import com.vuforia.CameraDevice;
 
-@Autonomous(name="AutonRight", group="Autonomous")
+@Autonomous(name="blue close 2", group="Autonomous")
 public class Auton1 extends OpMode{
     private ElapsedTime runtime = new ElapsedTime();
 //    private DigitalChannel DigChannel;
@@ -72,6 +72,14 @@ public class Auton1 extends OpMode{
                 break;
 
             case 1:
+                robot.claw.setPosition(0.1);
+                Thread.sleep(1000);
+
+                auto++;
+                break;
+
+
+            case 2:
                int en = robot.autonDrive(MovementEnum.FORWARD, 3300);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.drivePower(0.5);
@@ -95,7 +103,7 @@ public class Auton1 extends OpMode{
                 }
                 break;
 
-            case 2:
+            case 3:
 
                 en = robot.autonDrive(MovementEnum.LEFTSTRAFE, 1200);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
@@ -123,10 +131,10 @@ public class Auton1 extends OpMode{
                 }
                 break;
 
-            case 3:
+            case 4:
                 en = robot.autonDrive(MovementEnum.BACKWARD, 3400);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.drivePower(-0.75);
+                robot.drivePower(-0.5);
 //                robot.drivePower(1.0);
                 telemetry.addData("Cas1, en: ", en);
                 telemetry.addData("FL: ", robot.FL.getCurrentPosition());
@@ -147,14 +155,14 @@ public class Auton1 extends OpMode{
                 }
                 break;
 
-            case 4:
+            case 5:
                 robot.lHook.setPosition(1.0);
                 robot.rHook.setPosition(0.15);
                 Thread.sleep(1000);
                 auto++;
                 break;
 
-            case 5:
+            case 6:
                 en = robot.autonDrive(MovementEnum.RIGHTSTRAFE, 4900);
                 robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.strafePower(-0.5);

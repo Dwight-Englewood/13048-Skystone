@@ -18,8 +18,8 @@ import java.lang.Thread;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 //import com.vuforia.CameraDevice;
 
-@Autonomous(name="red close 2 V2", group="Autonomous")
-public class Auton4 extends OpMode{
+@Autonomous(name="red far 1", group="Autonomous")
+public class JoeyAuton extends OpMode{
     private ElapsedTime runtime = new ElapsedTime();
     //    private DigitalChannel DigChannel;
     Bot robot = new Bot();
@@ -80,7 +80,7 @@ public class Auton4 extends OpMode{
 
 
                 case 2:
-                    int en = robot.autonDrive(MovementEnum.FORWARD, 3100);
+                    int en = robot.autonDrive(MovementEnum.FORWARD, 2300);
                     robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
                     robot.drivePower(0.5);
 //                robot.drivePower(1.0);
@@ -94,7 +94,7 @@ public class Auton4 extends OpMode{
                     telemetry.update();
 
 
-                    if(en >= 3100){
+                    if(en >= 2300){
                         robot.autonDrive(MovementEnum.STOP, 0);
                         robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
                         robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -105,9 +105,9 @@ public class Auton4 extends OpMode{
 
                 case 3:
 
-                    en = robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1600);
+                    en = robot.autonDrive(MovementEnum.RIGHTSTRAFE, 7000);
                     robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
-                    robot.drivePower(-0.5);
+                    robot.drivePower(0.5);
 //                robot.drivePower(1.0);
                     telemetry.addData("Cas1, en: ", en);
                     telemetry.addData("FL: ", robot.FL.getCurrentPosition());
@@ -119,22 +119,69 @@ public class Auton4 extends OpMode{
                     telemetry.update();
 
 
-                    if(en >= 1600){
+                    if(en >= 7000){
                         robot.autonDrive(MovementEnum.STOP, 0);
                         robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
                         robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                         robot.strafePower(0.0);
-                        robot.lHook.setPosition(0.0);
-                        robot.rHook.setPosition(1.0);
-                        Thread.sleep(1000);
                         auto++;
                     }
                     break;
 
                 case 4:
+                    en = robot.autonDrive(MovementEnum.FORWARD, 300);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                    robot.drivePower(0.5);
+//                robot.drivePower(1.0);
+                    telemetry.addData("Cas1, en: ", en);
+                    telemetry.addData("FL: ", robot.FL.getCurrentPosition());
+                    telemetry.addData("FR: ", robot.FR.getCurrentPosition());
+                    telemetry.addData("BL: ", robot.BL.getCurrentPosition());
+                    telemetry.addData("BR: ", robot.BR.getCurrentPosition());
+
+
+                    telemetry.update();
+
+
+                    if(en >= 300){
+                        robot.autonDrive(MovementEnum.STOP, 0);
+                        robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                        robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        robot.strafePower(0.0);
+                        auto++;
+                    }
+                    break;
+
+                case 5:
+                    en = robot.autonDrive(MovementEnum.RIGHTSTRAFE, 1200);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                    robot.drivePower(0.5);
+
+                    telemetry.addData("Cas1, en: ", en);
+                    telemetry.addData("FL: ", robot.FL.getCurrentPosition());
+                    telemetry.addData("FR: ", robot.FR.getCurrentPosition());
+                    telemetry.addData("BL: ", robot.BL.getCurrentPosition());
+                    telemetry.addData("BR: ", robot.BR.getCurrentPosition());
+
+                    telemetry.update();
+
+                    if(en >= 1200){
+                        robot.autonDrive(MovementEnum.RIGHTSTRAFE, 0);
+                        robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                        robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        robot.strafePower(0.0);
+                        robot.lHook.setPosition(0.0);
+                        robot.rHook.setPosition(0.9);
+                        Thread.sleep(1000);
+                        auto++;
+                    }
+                    break;
+
+
+                case 6:
                     en = robot.autonDrive(MovementEnum.BACKWARD, 3400);
                     robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
-                    robot.drivePower(-0.75);
+                    robot.strafePower(-0.5);
 //                robot.drivePower(1.0);
                     telemetry.addData("Cas1, en: ", en);
                     telemetry.addData("FL: ", robot.FL.getCurrentPosition());
@@ -151,44 +198,16 @@ public class Auton4 extends OpMode{
                         robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
                         robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                         robot.strafePower(0.0);
+                        robot.lHook.setPosition(1.0);
+                        robot.rHook.setPosition(0.15);
+                        Thread.sleep(1000);
                         auto++;
                     }
                     break;
 
-                case 5:
-                    robot.lHook.setPosition(1.0);
-                    robot.rHook.setPosition(0.15);
-                    Thread.sleep(1000);
-                    auto++;
-                    break;
-
-
-                case 6:
-                    en = robot.autonDrive(MovementEnum.LEFTTURN, 1000);
-                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
-                    robot.drivePower(-0.75);
-//                robot.drivePower(1.0);
-                    telemetry.addData("Cas1, en: ", en);
-                    telemetry.addData("FL: ", robot.FL.getCurrentPosition());
-                    telemetry.addData("FR: ", robot.FR.getCurrentPosition());
-                    telemetry.addData("BL: ", robot.BL.getCurrentPosition());
-                    telemetry.addData("BR: ", robot.BR.getCurrentPosition());
-
-
-                    telemetry.update();
-
-
-                    if(en >= 1000){
-                        robot.autonDrive(MovementEnum.STOP, 0);
-                        robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
-                        robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                        robot.strafePower(0.0);
-                        auto++;
-                    }
-                    break;
 
                 case 7:
-                    en = robot.autonDrive(MovementEnum.LEFTSTRAFE, 4700);
+                    en = robot.autonDrive(MovementEnum.LEFTSTRAFE, 2900);
                     robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
                     robot.strafePower(-0.5);
 //                robot.drivePower(1.0);
@@ -202,7 +221,55 @@ public class Auton4 extends OpMode{
                     telemetry.update();
 
 
-                    if(en >= 4700){
+                    if(en >= 2900){
+                        robot.autonDrive(MovementEnum.STOP, 0);
+                        robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                        robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        robot.strafePower(0.0);
+                        auto++;
+                    }
+                    break;
+
+                case 8:
+                    en = robot.autonDrive(MovementEnum.FORWARD, 2200);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                    robot.drivePower(0.5);
+//                robot.drivePower(1.0);
+                    telemetry.addData("Cas1, en: ", en);
+                    telemetry.addData("FL: ", robot.FL.getCurrentPosition());
+                    telemetry.addData("FR: ", robot.FR.getCurrentPosition());
+                    telemetry.addData("BL: ", robot.BL.getCurrentPosition());
+                    telemetry.addData("BR: ", robot.BR.getCurrentPosition());
+
+
+                    telemetry.update();
+
+
+                    if(en >= 2200){
+                        robot.autonDrive(MovementEnum.STOP, 0);
+                        robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                        robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        robot.strafePower(0.0);
+                        auto++;
+                    }
+                    break;
+
+                case 9:
+                    en = robot.autonDrive(MovementEnum.LEFTSTRAFE, 1500);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                    robot.strafePower(-0.5);
+//                robot.drivePower(1.0);
+                    telemetry.addData("Cas1, en: ", en);
+                    telemetry.addData("FL: ", robot.FL.getCurrentPosition());
+                    telemetry.addData("FR: ", robot.FR.getCurrentPosition());
+                    telemetry.addData("BL: ", robot.BL.getCurrentPosition());
+                    telemetry.addData("BR: ", robot.BR.getCurrentPosition());
+
+
+                    telemetry.update();
+
+
+                    if(en >= 1500){
                         robot.autonDrive(MovementEnum.STOP, 0);
                         robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
                         robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
