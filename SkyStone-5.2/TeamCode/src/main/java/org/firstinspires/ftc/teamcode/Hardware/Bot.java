@@ -16,8 +16,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 //import org.firstinspires.ftc.teamcode.TensorFlowStuff.TensorFlow;
 
 public class Bot {
-    public static DcMotor BL, BR, FL, FR, lift;
-//    public static DcMotor LI, RI;
+    public static DcMotorEx BL, BR, FL, FR;
+    public static DcMotor LI, RI, lift;
+    public static double p = 2.5;
+    public static double i = 0.1;
+    public static double d = 0.2;
+
 
 //  TOP, BOT, jointl;
 //    public CRServo inBOBO;
@@ -41,6 +45,7 @@ public class Bot {
     public static BNO055IMU gyro;
     BNO055IMU.Parameters parameters;
     Orientation angles;
+    public static PIDCoefficients pid;
 
     public Bot() {
     }
@@ -48,16 +53,17 @@ public class Bot {
     public void init(HardwareMap map, Telemetry tele, boolean auton) {
         this.map = map;
         this.tele = tele;
-
+        pid = new PIDCoefficients(2.5, 0.1, 0.2);
 //        hook = this.map.get(DcMotor.class, "hook");
-        BR = this.map.get(DcMotor.class, "BR");
-        BL = this.map.get(DcMotor.class, "BL");
-        FL = this.map.get(DcMotor.class, "FL");
-        FR = this.map.get(DcMotor.class, "FR");
+        BR = (DcMotorEx) this.map.get(DcMotor.class, "BR");
+        BL = (DcMotorEx) this.map.get(DcMotor.class, "BL");
+        FL = (DcMotorEx) this.map.get(DcMotor.class, "FL");
+        FR = (DcMotorEx) this.map.get(DcMotor.class, "FR");
+//        pid = BR.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
 //        TOP = this.map.get(DcMotor.class, "TOP");
 //        BOT = this.map.get(DcMotor.class, "BOT");
-//        LI = this.map.get(DcMotor.class, "LI");
-//        RI = this.map.get(DcMotor.class, "RI");
+        LI = this.map.get(DcMotor.class, "LI");
+        RI = this.map.get(DcMotor.class, "RI");
         lift = this.map.get(DcMotor.class, "lift");
 
 //        LC = this.map.get(CRServo.class, "LC");
@@ -78,8 +84,8 @@ public class Bot {
         FR.setDirection( DcMotorSimple.Direction.REVERSE);
 //        TOP.setDirection(DcMotorSimple.Direction.FORWARD);
 //        BOT.setDirection(DcMotorSimple.Direction.FORWARD);
-   //     LI.setDirection(DcMotorSimple.Direction.REVERSE);
-   //     RI.setDirection(DcMotorSimple.Direction.FORWARD);
+        LI.setDirection(DcMotorSimple.Direction.REVERSE);
+        RI.setDirection(DcMotorSimple.Direction.FORWARD);
 //        LC.setDirection(DcMotorSimple.Direction.REVERSE);
 //        RC.setDirection(DcMotorSimple.Direction.REVERSE);
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -93,6 +99,7 @@ public class Bot {
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         tele.addData(">", "2");
         tele.update();
+
 
         parameters.calibrationDataFile = "BNO055IMUCalibration.json";
         gyro = this.map.get(BNO055IMU.class, "gyro");
@@ -115,14 +122,19 @@ public class Bot {
     }
 
     public static void changeRunMode(DcMotor.RunMode runMode) {
-        BL.setMode(runMode);
-        BR.setMode(runMode);
-        FL.setMode(runMode);
-        FR.setMode(runMode);
+        pid = new PIDCoefficients(p, i, d);
+        BR.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pid);
+        FR.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pid);
+        BL.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pid);
+        FL.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pid);
+//        BL.setMode(runMode);
+//        BR.setMode(runMode);
+//        FL.setMode(runMode);
+//        FR.setMode(runMode);
   //      TOP.setMode(runMode);
   //      BOT.setMode(runMode);
-  //      RI.setMode(runMode);
-  //      LI.setMode(runMode);
+        RI.setMode(runMode);
+        LI.setMode(runMode);
 //        hook.setMode(runMode);
         lift.setMode(runMode);
 //        joint.setMode(runMode);
@@ -172,20 +184,20 @@ public class Bot {
     public void turnPower(double power) {
         BL.setPower(-power);
         BR.setPower(power);
-        FR.setPower(-power);
-        FL.setPower(power);
+        FR.setPower(power);
+        FL.setPower(-power);
     }
 
     public void drivePower(double power) {
-        FL.setPower(power);
-        FR.setPower(power);
-        BL.setPower(-power);
-        BR.setPower(-power);
+        FL.setPower(-power);
+        FR.setPower(-power);
+        BL.setPower(power);
+        BR.setPower(power);
     }
     public void strafePower(double power) {
         FL.setPower(power);
-        FR.setPower(power);
-        BL.setPower(power);
+        FR.setPower(-power);
+        BL.setPower(-power);
         BR.setPower(power);
     }
     public void setPower(double power) {

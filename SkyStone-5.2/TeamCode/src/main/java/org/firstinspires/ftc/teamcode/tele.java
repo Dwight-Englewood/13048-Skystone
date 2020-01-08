@@ -18,6 +18,8 @@ public class tele extends OpMode {
 
     Bot bot = new Bot();
     int TankDrive = -1;
+    double factor = 0.75;
+    double pos = 0.5;
     /*
     fr = 1
     fl = 2
@@ -53,18 +55,13 @@ public class tele extends OpMode {
         double leftStickX = (double) gamepad1.left_stick_x;
         double leftTrigger2 = (double) gamepad2.left_trigger;
         double rightTrigger2 = (double) gamepad2.right_trigger;
-        if(!gamepad1.right_bumper) {
-            drive.driveBot(leftStickY, rightStickX, rightTrigger, leftTrigger, 0.0, 0.0);
-        }
-        else if(rightStickX < -0.15 && gamepad1.right_bumper) {
-            bot.turnPower(-0.10);
-        }
-        else if(rightStickX > 0.15 && gamepad1.right_bumper){
-            bot.turnPower(0.10);
-        }
-        else{
-            bot.stop();
-        }
+        telemetry.addData("PID: ", bot.BL.getPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER));
+        telemetry.update();
+        drive.driveBot(-leftStickY, rightStickX, -rightTrigger, -leftTrigger, 0.0, 0.0, factor);
+        if(gamepad1.a)
+            factor = 0.35;
+        if(gamepad1.b)
+            factor = 0.9;
         if(gamepad2.dpad_up)
             bot.lift.setPower(1);
         else if(gamepad2.dpad_down)
@@ -90,6 +87,22 @@ public class tele extends OpMode {
             bot.rHook.setPosition(0.15);
             bot.lHook.setPosition(1.0);
         }
+//        if(gamepad2.a)
+//            pos = 0.5;
+//        if(gamepad2.b)
+//            pos = -0.5;
+//        if(gamepad2.left_bumper)
+//            bot.i += pos;
+//        if(gamepad2.right_bumper)
+//            bot.d += pos;
+//        if(gamepad2.y)
+//            bot.p += pos;
+//        if(gamepad2.x)
+//            bot.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
+
 //        if(gamepad2.right_stick_y > 0.15)
 //            bot.FR.setPower((double) gamepad2.right_stick_y);
 //        else

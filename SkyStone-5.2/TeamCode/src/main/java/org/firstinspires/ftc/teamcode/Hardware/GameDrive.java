@@ -21,14 +21,20 @@ public class GameDrive {
         this.bot = bot;
     }
 
-    public static void driveBot(double leftStickY,double rightStickX,double rightTrigger,double leftTrigger,double leftStickX,double rightStickY) {
-        if(rightStickX != 0.0)
-           bot.turnPower(rightStickX);
-        else if(rightTrigger != 0.0)
-            bot.strafePower(-rightTrigger);
-        else if(leftTrigger != 0.0)
-            bot.strafePower(leftTrigger);
+    public static void driveBot(double leftStickY,double rightStickX,double rightTrigger,double leftTrigger,double leftStickX,double rightStickY, double factor) {
+        if(rightStickX != 0.0) {
+//           bot.turnPower(factor * rightStickX);
+            bot.strafePower(factor * rightStickX);
+        }
+        else if(rightTrigger != 0.0) {
+//            bot.strafePower(factor * -rightTrigger);
+            bot.turnPower(factor * -rightTrigger);
+        }
+        else if(leftTrigger != 0.0) {
+//            bot.strafePower(factor * leftTrigger);
+            bot.turnPower(factor * leftTrigger);
+        }
         else
-            bot.drivePower(leftStickY);
+            bot.drivePower(factor * leftStickY);
     }
 }
