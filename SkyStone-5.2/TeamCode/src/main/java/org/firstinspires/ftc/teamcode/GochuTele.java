@@ -11,17 +11,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 //import org.firstinspires.ftc.teamcode.Hardware.Bot;
 import org.firstinspires.ftc.teamcode.Hardware.*;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp", group="Teleop")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Gochu Tele", group="Teleop")
 
 //@Disabled
-public class tele extends OpMode {
+public class GochuTele extends OpMode {
 
     Bot bot = new Bot();
     int TankDrive = -1;
     double factor = 0.75;
     double pos = 0.5;
     /*
-    fr = 1
+    fr = 1\
+
     fl = 2
     bl = 3
     br = 4
@@ -69,25 +70,41 @@ public class tele extends OpMode {
             bot.lift.setPower(-1);
         else
             bot.lift.setPower(0);
-        if(gamepad2.a) {
-            bot.clamp.setPosition(0.1);
+        if(gamepad2.right_stick_x < 0) {
+            bot.joint.setPosition(0.55);
+            telemetry.addData(">", "0.5");
+            telemetry.update();
+        }
+        else if(gamepad2.right_stick_x > 0) {
+            bot.joint.setPosition(0.1);
             telemetry.addData(">", "0.1");
             telemetry.update();
         }
         if(gamepad2.b) {
-            bot.clamp.setPosition(0.9);
-            telemetry.addData(">", "0.9");
+            bot.clamp.setPosition(0.1);
+            telemetry.addData(">", "0.1");
             telemetry.update();
         }
-        if(gamepad2.x){
-            bot.hook.setPosition(1.0);
-
+        else if(gamepad2.a) {
+            bot.clamp.setPosition(1.0);
+            telemetry.addData(">", "1.0");
+            telemetry.update();
         }
-        if(gamepad2.y){
-            bot.hook.setPosition(0.15);
-        }
+        if(gamepad2.right_trigger > 0.0)
             bot.gochu.setPower(gamepad2.right_trigger);
+        else if(gamepad2.left_trigger > 0.0)
             bot.gochu.setPower(-gamepad2.left_trigger);
+
+        if(gamepad2.right_bumper) {
+            bot.gochu.setPower(0.0);
+        }
+        if(gamepad1.x) {
+            bot.hook.setPosition(1.0);
+        }
+        if(gamepad1.y) {
+            bot.hook.setPosition(0.0x);
+        }
+
 //        if(gamepad2.a)
 //            pos = 0.5;
 //        if(gamepad2.b)

@@ -12,12 +12,12 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
 public class TensorFlow {
-    private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
-    private static final String LABEL_FIRST_ELEMENT = "Stone";
-    private static final String LABEL_SECOND_ELEMENT = "Skystone";
-    private static final String VUFORIA_KEY = "AalCmlL/////AAABmX1QrqB1nUg9ocZ6eiXDvG0PvDRt0IXeA3yX89HHD+kI67mRqnF1LxjWbCI5xJwYIOLc5WxjOQ0mbCPV/wmDi2Cx6kjFBlcXtkrhAA6v8Ag5yslgW+7bB0JZv7+LnQcMG1u5rH+qBG3i4C0EeJHP73k+KzJ3RTS+j9c1uK0vlf+1NCuN6xPwnWRIRgM+SEYPxh2N96f77gWGCWlGn8cUN/sr28d4KIvdYU7yQJF1QzlWDf+53OcgpdzmV04mPmWb4hQS/a2LUCG8rTVMtjmqn5rfksJnQS7xWzxFeyymCmaTShJDescyOaRyokH7GF7vckPATFQiZGvMuVT4LheJoVMocEpdiTs86M7tvk06LogG";
-    private VuforiaLocalizer vuforia;
-    private TFObjectDetector tfod;
+    public static final String TFOD_MODEL_ASSET = "Skystone.tflite";
+    public static final String LABEL_FIRST_ELEMENT = "Stone";
+    public static final String LABEL_SECOND_ELEMENT = "Skystone";
+    public static final String VUFORIA_KEY = "AalCmlL/////AAABmX1QrqB1nUg9ocZ6eiXDvG0PvDRt0IXeA3yX89HHD+kI67mRqnF1LxjWbCI5xJwYIOLc5WxjOQ0mbCPV/wmDi2Cx6kjFBlcXtkrhAA6v8Ag5yslgW+7bB0JZv7+LnQcMG1u5rH+qBG3i4C0EeJHP73k+KzJ3RTS+j9c1uK0vlf+1NCuN6xPwnWRIRgM+SEYPxh2N96f77gWGCWlGn8cUN/sr28d4KIvdYU7yQJF1QzlWDf+53OcgpdzmV04mPmWb4hQS/a2LUCG8rTVMtjmqn5rfksJnQS7xWzxFeyymCmaTShJDescyOaRyokH7GF7vckPATFQiZGvMuVT4LheJoVMocEpdiTs86M7tvk06LogG";
+    public VuforiaLocalizer vuforia;
+    public static TFObjectDetector tfod;
 
     public enum Spot {
         LEFT, MIDDLE, RIGHT, NOTVISIBLE;
@@ -57,7 +57,7 @@ public class TensorFlow {
     }*/
 
     // Created for looking at RIGHTMOST 2 BLOCKS (next to wall)
-    public Spot getSkystonePosBlue(Telemetry telemetry) {
+    public static Spot getSkystonePosBlue(Telemetry telemetry) {
         if (tfod != null) {
             // Make this a var since this is a constantly changing thing and we want to check 1 instance
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();

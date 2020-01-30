@@ -17,16 +17,16 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class Bot {
     public static DcMotorEx BL, BR, FL, FR;
-    public static DcMotor LI, RI, lift;
-    public static double p = 2.5;
-    public static double i = 0.1;
-    public static double d = 0.2;
+    public static DcMotor lift, gochu;
+//    public static double p = 2.5;
+//    public static double i = 0.1;
+//    public static double d = 0.2;
 
 
 //  TOP, BOT, jointl;
 //    public CRServo inBOBO;
 //    public CRServo LC, RC;
-    public Servo claw, rHook, lHook;
+    public Servo clamp, hook, joint;
 
 //    public DigitalChannel liftLimit, hookLimit;
 //    public RevBlinkinLedDriver blinkin;
@@ -53,25 +53,28 @@ public class Bot {
     public void init(HardwareMap map, Telemetry tele, boolean auton) {
         this.map = map;
         this.tele = tele;
-        pid = new PIDCoefficients(2.5, 0.1, 0.2);
+//        pid = new PIDCoefficients(2.5, 0.1, 0.2);
 //        hook = this.map.get(DcMotor.class, "hook");
         BR = (DcMotorEx) this.map.get(DcMotor.class, "BR");
         BL = (DcMotorEx) this.map.get(DcMotor.class, "BL");
         FL = (DcMotorEx) this.map.get(DcMotor.class, "FL");
         FR = (DcMotorEx) this.map.get(DcMotor.class, "FR");
-//        pid = BR.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
+        pid = BR.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
 //        TOP = this.map.get(DcMotor.class, "TOP");
 //        BOT = this.map.get(DcMotor.class, "BOT");
-        LI = this.map.get(DcMotor.class, "LI");
-        RI = this.map.get(DcMotor.class, "RI");
+//        LI = this.map.get(DcMotor.class, "LI");
+//        RI = this.map.get(DcMotor.class, "RI");
         lift = this.map.get(DcMotor.class, "lift");
+        gochu = this.map.get(DcMotor.class, "gochu");
 
 //        LC = this.map.get(CRServo.class, "LC");
 //        RC = this.map.get(CRServo.class, "RC");
-        claw = this.map.get(Servo.class, "claw" );
-        lHook = this.map.get(Servo.class, "left hook");
-        rHook = this.map.get(Servo.class, "right hook");
-//        joint = this.map.get(DcMotor.class, "joint");
+//        claw = this.map.get(Servo.class, "claw");
+//        lHook = this.map.get(Servo.class, "left hook");
+//        rHook = this.map.get(Servo.class, "right hook");
+        hook = this.map.get(Servo.class, "hook");
+        clamp = this.map.get(Servo.class, "clamp");
+        joint = this.map.get(Servo.class, "joint");
 
 //        door = this.map.get(Servo.class, "door");
         //  blinkin = this.map.get(RevBlinkinLedDriver.class, "rgbReady");
@@ -84,14 +87,15 @@ public class Bot {
         FR.setDirection( DcMotorSimple.Direction.REVERSE);
 //        TOP.setDirection(DcMotorSimple.Direction.FORWARD);
 //        BOT.setDirection(DcMotorSimple.Direction.FORWARD);
-        LI.setDirection(DcMotorSimple.Direction.REVERSE);
-        RI.setDirection(DcMotorSimple.Direction.FORWARD);
+//        LI.setDirection(DcMotorSimple.Direction.REVERSE);
+//        RI.setDirection(DcMotorSimple.Direction.FORWARD);
 //        LC.setDirection(DcMotorSimple.Direction.REVERSE);
 //        RC.setDirection(DcMotorSimple.Direction.REVERSE);
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
 //        joint.setDirection(DcMotorSimple.Direction.FORWARD);
 //        inBOBO.setDirection(DcMotorSimple.Direction.FORWARD);
 //        hook.setDirection(DcMotorSimple.Direction.REVERSE);
+        gochu.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.changeRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -122,7 +126,7 @@ public class Bot {
     }
 
     public static void changeRunMode(DcMotor.RunMode runMode) {
-        pid = new PIDCoefficients(p, i, d);
+//        pid = new PIDCoefficients(p, i, d);
         BR.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pid);
         FR.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pid);
         BL.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pid);
@@ -133,10 +137,11 @@ public class Bot {
 //        FR.setMode(runMode);
   //      TOP.setMode(runMode);
   //      BOT.setMode(runMode);
-        RI.setMode(runMode);
-        LI.setMode(runMode);
+//        RI.setMode(runMode);
+//        LI.setMode(runMode);
 //        hook.setMode(runMode);
         lift.setMode(runMode);
+        gochu.setMode(runMode);
 //        joint.setMode(runMode);
         //  intake.setMode(runMode);
     }
@@ -212,7 +217,7 @@ public class Bot {
     public void lift(double power){
         lift.setPower(power);
         //  TOP.setPower(power);
-        // BOT.setPower(power);
+        // BOT.setPower(power);d
 
     }
 
@@ -249,9 +254,9 @@ public class Bot {
 
             case LEFTSTRAFE:
                 FL.setTargetPosition(target);
-                FR.setTargetPosition(target);
+                FR.setTargetPosition(-target);
                 BL.setTargetPosition(target);
-                BR.setTargetPosition(target);
+                BR.setTargetPosition(-target);
                 x = Math.max(BR.getCurrentPosition(), Math.max(BL.getCurrentPosition(), Math.max(FR.getCurrentPosition(), FL.getCurrentPosition())));
                 break;
 
@@ -261,9 +266,9 @@ public class Bot {
 //                BL.setTargetPosition(target);
 //                BR.setTargetPosition(-target);
                 FL.setTargetPosition(-target);
-                FR.setTargetPosition(-target);
+                FR.setTargetPosition(target);
                 BL.setTargetPosition(-target);
-                BR.setTargetPosition(-target);
+                BR.setTargetPosition(target);
                 x = Math.max(-BR.getCurrentPosition(), Math.max(-BL.getCurrentPosition(), Math.max(-FR.getCurrentPosition(), -FL.getCurrentPosition())));
                 break;
 

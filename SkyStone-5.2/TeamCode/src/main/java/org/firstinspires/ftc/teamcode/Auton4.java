@@ -72,7 +72,7 @@ public class Auton4 extends OpMode{
                     break;
 
                 case 1:
-                    robot.claw.setPosition(0.1);
+                    robot.clamp.setPosition(0.1);
                     Thread.sleep(1000);
 
                     auto++;
@@ -124,8 +124,7 @@ public class Auton4 extends OpMode{
                         robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
                         robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                         robot.strafePower(0.0);
-                        robot.lHook.setPosition(0.0);
-                        robot.rHook.setPosition(1.0);
+                        robot.hook.setPosition(1.0);
                         Thread.sleep(1000);
                         auto++;
                     }
@@ -156,8 +155,7 @@ public class Auton4 extends OpMode{
                     break;
 
                 case 5:
-                    robot.lHook.setPosition(1.0);
-                    robot.rHook.setPosition(0.15);
+                    robot.hook.setPosition(0.15);
                     Thread.sleep(1000);
                     auto++;
                     break;
