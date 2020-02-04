@@ -63,7 +63,7 @@ public class GochuTele extends OpMode {
         if(gamepad1.a)
             factor = 0.35;
         if(gamepad1.b)
-            factor = 0.9;
+            factor = 1.0;
         if(gamepad2.dpad_up)
             bot.lift.setPower(1);
         else if(gamepad2.dpad_down)
@@ -71,7 +71,7 @@ public class GochuTele extends OpMode {
         else
             bot.lift.setPower(0);
         if(gamepad2.right_stick_x < 0) {
-            bot.joint.setPosition(0.55);
+            bot.joint.setPosition(0.9);
             telemetry.addData(">", "0.5");
             telemetry.update();
         }
@@ -102,7 +102,7 @@ public class GochuTele extends OpMode {
             bot.hook.setPosition(1.0);
         }
         if(gamepad1.y) {
-            bot.hook.setPosition(0.0x);
+            bot.hook.setPosition(0.0);
         }
 
 //        if(gamepad2.a)
