@@ -287,11 +287,77 @@ public class AutonCam1 extends OpMode {
 
 
                 case 12:
+                    en = robot.autonDrive(MovementEnum.BACKWARD, 800);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                    robot.drivePower(0.5);
+//                robot.drivePower(1.0);
+
+                    if (en >= 800) {
+                        robot.autonDrive(MovementEnum.STOP, 0);
+                        robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                        robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        robot.strafePower(0.0);
+                        auto++;
+                    }
+                    break;
+
+
+
+                case 13:
+                    en = robot.autonDrive(MovementEnum.RIGHTTURN, 600);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                    robot.drivePower(0.5);
+//                robot.drivePower(1.0);
+
+                    if (en >= 600) {
+                        robot.autonDrive(MovementEnum.STOP, 0);
+                        robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                        robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        auto++;
+                    }
+                    break;
+
+
+                case 14:
+                    en = robot.autonDrive(MovementEnum.FORWARD, 2200);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                    robot.drivePower(0.5);
+                    if (en >= 2000) {
+                        robot.autonDrive(MovementEnum.STOP, 0);
+                        robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                        robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        robot.strafePower(0.0);
+                        auto++;
+                    }
+                    break;
+
+
+                case 15:
+                    en = robot.autonDrive(MovementEnum.LEFTTURN, 600);
+                    robot.changeRunModeAuton(DcMotor.RunMode.RUN_TO_POSITION);
+                    robot.drivePower(0.5);
+//                robot.drivePower(1.0);
+
+                    if (en >= 600) {
+                        robot.autonDrive(MovementEnum.STOP, 0);
+                        robot.changeRunModeAuton(DcMotor.RunMode.RUN_USING_ENCODER);
+                        robot.changeRunModeAuton(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        robot.strafePower(0.0);
+                        robot.hook.setPosition(1.0);
+                        Thread.sleep(1000);
+                        auto++;
+                    }
+                    break;
 
 
 
 
-                }
+
+
+
+
+
+            }
             }
             catch(InterruptedException e){
             Thread.currentThread().interrupt();  // set interrupt flag
